@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
-import logo from '../../public/logo.png'
 
 
 const AuthLayout: React.FC<any> = ({children, title}) => {
@@ -14,15 +13,28 @@ const AuthLayout: React.FC<any> = ({children, title}) => {
             <meta name="description" content="PayFocus by Uniccon group" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className='w-full h-full min-h-screen grid grid-cols-12 xl:gap-10'>
-            <div className='col-span-12 lg:col-span-5 pt-[50px] pl-[30px] xl:pt-[60px] xl:pl-[40px]'>
+        <div className='w-full h-full min-h-screen grid grid-cols-12 gap-10 xl:gap-14 font-Poppins'>
+
+            <div className='col-span-12 lg:col-span-5 pt-[30px] pl-[35px] xl:pl-[50px] '>
+
                 <div className='flex flex-col space-y-3'>
-                    <HiOutlineArrowLeft className='!text-xl cursor-pointer' />
-                    <div className='!mt-[25px] xl:!mt-[40px]'>
+                    <HiOutlineArrowLeft className='text-lg xl:!text-xl cursor-pointer' />
+                    <div className='!mt-[25px] hidden xl:block'>
                         <Image src='/logo.png' width={177} height={42} />
                     </div>
+                    <div className='!mt-[25px]  xl:hidden'>
+                        <Image src='/logo.png' width={170} height={38} />
+                    </div>
                 </div>
+
+                <div>
+                    {children}
+                </div>
+
             </div>
+
+            
+            {/* Conditional side image */}
             <div className='hidden lg:block lg:col-span-7 relative '>
                 <div className='!relative w-full h-full '>
                     <Image 
@@ -31,7 +43,7 @@ const AuthLayout: React.FC<any> = ({children, title}) => {
                         objectFit='cover'
                     />
                 </div>
-                <div className='w-full h-full bg-black/40 z-50 absolute top-0 '></div>
+                <div className='w-full h-full bg-black/50 z-40 absolute top-0 '></div>
             </div>
         </div>
     </>

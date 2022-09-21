@@ -11,6 +11,9 @@ module.exports = {
         mainBlack: '#848383',
         primaryOne: '#3270FD',
         secondaryOne: '#F5F5F5'
+      },
+      fontFamily: {
+        Poppins: ["Poppins, sans-serif"],
       }
     },
   },
