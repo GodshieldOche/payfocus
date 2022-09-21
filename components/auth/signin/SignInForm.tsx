@@ -5,30 +5,22 @@ import Input from '../../formik/Input';
 import Button from '../../common/Button';
 import TextButton from '../../common/TextButton';
 
-
 const signupSchema = yup.object().shape({
-    fullName: yup.string().required('This field is required.'),
     email: yup.string().email('Email address is incorrect').required('This field is required.'),
-    phoneNumber: yup.string().required('This field is required.'),
     password: yup.string().min(8).required('This field is required.'),
 })
 
 interface signupValues {
-    fullName: string;
     email: string;
     password: string;
-    phoneNumber: string;
   }
   
 
-const SignupForm = () => {
-
+const SignInForm = () => {
 
     const initialValues: signupValues = {
-        fullName:'',
         email: '',
         password: '',
-        phoneNumber: ''
     }
 
 
@@ -45,17 +37,7 @@ const SignupForm = () => {
         {
             ({ errors, touched, handleSubmit, values, handleChange, isSubmitting }) => (
                 <Form className="w-full space-y-7 pb-10">
-                    <Input
-                         label='Full Name'
-                         name='fullName'
-                         type="text"
-                         value={values.fullName}
-                         handleChange={handleChange}
-                         placeholder='Full Name'
-                         errors={errors.fullName}
-                         touched={touched.fullName}
-                     />
-
+        
                     <Input
                          label='Email Address'
                          name='email'
@@ -65,17 +47,6 @@ const SignupForm = () => {
                          placeholder='Email Address'
                          errors={errors.email}
                          touched={touched.email}
-                     />
-
-                    <Input
-                         label='Phone Number'
-                         name='phoneNumber'
-                         type="tel"
-                         value={values.phoneNumber}
-                         handleChange={handleChange}
-                         placeholder='Phone Number'
-                         errors={errors.phoneNumber}
-                         touched={touched.phoneNumber}
                      />
 
                     <Input
@@ -89,11 +60,13 @@ const SignupForm = () => {
                          touched={touched.password}
                      />
 
+                     <h3 className='text-right !mt-3 cursor-pointer'>Recover Password</h3>
+
 
                      {/* Bttons */}
                      <div className='w-full h-full space-y-5 !mt-[56px]'>
-                        <Button text="Create Account" handleSubmit={handleSubmit} isSubmitting={isSubmitting} />
-                        <TextButton text="Sign In" route="signin"  />
+                        <Button text="Sign In" handleSubmit={handleSubmit} isSubmitting={isSubmitting} />
+                        <TextButton text="Create Account" route="signup"  />
                      </div>
 
                 </Form>
@@ -103,4 +76,4 @@ const SignupForm = () => {
   )
 }
 
-export default SignupForm
+export default SignInForm
