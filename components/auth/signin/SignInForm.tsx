@@ -4,21 +4,24 @@ import * as yup from 'yup';
 import Input from '../../formik/Input';
 import Button from '../../common/Button';
 import TextButton from '../../common/TextButton';
+import { useRouter } from 'next/router'
 
-const signupSchema = yup.object().shape({
+const signinSchema = yup.object().shape({
     email: yup.string().email('Email address is incorrect').required('This field is required.'),
     password: yup.string().min(8).required('This field is required.'),
 })
 
-interface signupValues {
+interface siginValues {
     email: string;
     password: string;
   }
   
 
-const SignInForm = () => {
+const SignInForm: React.FC = () => {
 
-    const initialValues: signupValues = {
+    const router = useRouter()
+
+    const initialValues: siginValues = {
         email: '',
         password: '',
     }
@@ -27,7 +30,7 @@ const SignInForm = () => {
   return (
     <Formik
         initialValues={initialValues}
-        validationSchema={signupSchema}
+        validationSchema={signinSchema}
         onSubmit={(values, {resetForm, setSubmitting}) => {
             console.log('submitted')
             resetForm()
@@ -60,7 +63,12 @@ const SignInForm = () => {
                          touched={touched.password}
                      />
 
-                     <h3 className='text-right !mt-3 cursor-pointer'>Recover Password</h3>
+                     <h3 
+                     className='text-right !mt-3 cursor-pointer'
+                     onClick={() => router.push('/auth/signin/password/reset')}
+                     >
+                        Reset Password
+                     </h3>
 
 
                      {/* Bttons */}

@@ -41,7 +41,7 @@ const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touche
                         className='!text-lg !text-primaryOne cursor-pointer' />
                         : <RiEyeOffFill 
                         onClick={() => setInputType('password')}
-                        className='!text-lg !text-primaryOne cursor-pointer' />
+                        className='!text-lg !text-mainBlack cursor-pointer' />
                     }
                    
                 </div>
