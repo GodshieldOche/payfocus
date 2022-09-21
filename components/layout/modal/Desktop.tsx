@@ -10,7 +10,7 @@ type Props = {
 const Desktop: React.FC<Props> = ({close}) => {
 
   return (
-    <div className='w-[460px] h-[346px] bg-light rounded-[10px] flex flex-col items-center py-[24px] px-[16px] space-y-7 '>
+    <div className='w-[460px] h-fit bg-light rounded-[10px] flex flex-col items-center py-[24px] px-[16px] space-y-7 '>
         <h1 className='text-lg text-primaryOne font-[600] tracking-wide '>Recover Password</h1>
         <div className=''>
             <Image
