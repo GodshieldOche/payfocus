@@ -7,10 +7,9 @@ type Props = {
     close: () => void
 }
 
-const Desktop: React.FC<Props> = ({close}) => {
-
+const Mobile: React.FC<Props> = ({close}) => {
   return (
-    <div className='w-[460px] h-fit bg-light rounded-[10px] flex flex-col items-center py-[24px] px-[16px] space-y-5 '>
+    <div className='!w-full h-fit bg-light rounded-t-[10px] flex flex-col items-center py-[24px] px-[16px] space-y-5 '>
         <h1 className='text-lg text-primaryOne font-[600] tracking-wide '>Recover Password</h1>
         <div className=''>
             <Image
@@ -25,4 +24,4 @@ const Desktop: React.FC<Props> = ({close}) => {
   )
 }
 
-export default Desktop
+export default Mobile
