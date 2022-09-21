@@ -36,12 +36,14 @@ const SignupForm = () => {
     <Formik
         initialValues={initialValues}
         validationSchema={signupSchema}
-        onSubmit={() => {
+        onSubmit={(values, {resetForm, setSubmitting}) => {
             console.log('submitted')
+            resetForm()
+            setSubmitting(false)
         }}
     >
         {
-            ({ errors, touched, handleSubmit, values, handleChange }) => (
+            ({ errors, touched, handleSubmit, values, handleChange, isSubmitting }) => (
                 <Form className="w-full space-y-7 pb-10">
                     <Input
                          label='Full Name'
@@ -90,8 +92,8 @@ const SignupForm = () => {
 
                      {/* Bttons */}
                      <div className='w-full h-full space-y-5 '>
-                        <Button text="Create Account" />
-                        <TextButton text="Sign In"  />
+                        <Button text="Create Account" handleSubmit={handleSubmit} isSubmitting={isSubmitting} />
+                        <TextButton text="Sign In" route="signin"  />
                      </div>
 
                 </Form>
