@@ -57,7 +57,7 @@ const AuthLayout: React.FC<any> = ({children, title}) => {
                             : 'https://res.cloudinary.com/dk6uhtgvo/image/upload/v1663756802/PayFocus/man-1868730_1920_1_f7zwst.png'
                         }
                         layout='fill'
-                        objectFit='cover'
+                        className='!max-w-full h-auto'
                         priority
                     />
                 </div>

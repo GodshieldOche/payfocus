@@ -9,7 +9,7 @@ type Props = {
 
 const Mobile: React.FC<Props> = ({close}) => {
   return (
-    <div className='!w-full h-fit bg-light rounded-t-[10px] flex flex-col items-center py-[24px] px-[16px] space-y-5 '>
+    <div className='!w-full h-fit bg-light rounded-t-[20px] flex flex-col items-center py-[24px] px-[16px] space-y-5 '>
         <h1 className='text-lg text-primaryOne font-[600] tracking-wide '>Recover Password</h1>
         <div className=''>
             <Image
