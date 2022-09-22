@@ -11,12 +11,12 @@
         @apply text-lg font-medium tracking-wide text-mainBlack;
     }
     h3 {
-        @apply text-sm font-normal tracking-wide text-mainBlack;
+        @apply text-base  font-normal tracking-wide text-mainBlack;
     }
     
 }
 
 
  .input {
-    @apply w-full outline-none text-sm placeholder:text-mainBlack/70 py-[15px] pl-[12px] bg-secondaryOne rounded-[7px] text-mainBlack
+    @apply w-full outline-none text-base  placeholder:text-mainBlack/70 py-[15px] pl-[12px] bg-secondaryOne rounded-[7px] text-mainBlack
 }
