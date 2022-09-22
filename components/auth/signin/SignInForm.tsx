@@ -5,10 +5,13 @@ import Input from '../../formik/Input';
 import Button from '../../common/Button';
 import TextButton from '../../common/TextButton';
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux';
+import { postSignIn } from '../../../redux/features/auth';
+import { setModal, setModalData } from '../../../redux/features/modal';
 
 const signinSchema = yup.object().shape({
     email: yup.string().email('Email address is incorrect').required('This field is required.'),
-    password: yup.string().min(8).required('This field is required.'),
+    password: yup.string().required('This field is required.'),
 })
 
 interface siginValues {
@@ -17,9 +20,8 @@ interface siginValues {
   }
   
 
-const SignInForm: React.FC = () => {
 
-    const router = useRouter()
+const SignInForm: React.FC = () => {
 
     const initialValues: siginValues = {
         email: '',
@@ -27,14 +29,38 @@ const SignInForm: React.FC = () => {
     }
 
 
+    const dispatch = useDispatch()
+    const router = useRouter()
+
+    const error = {
+        title: 'Login Unsuccessful',
+        type: 'error',
+        text: 'Invalid email or password',
+        buttonText: 'OK',
+        func: () => {dispatch(setModal(false))}
+    }
+
+   
+
   return (
     <Formik
         initialValues={initialValues}
         validationSchema={signinSchema}
-        onSubmit={(values, {resetForm, setSubmitting}) => {
-            console.log('submitted')
-            resetForm()
-            setSubmitting(false)
+        onSubmit={(data, {resetForm, setSubmitting}) => {
+            dispatch(postSignIn(data)).then((res: any) => {
+                if(res.error) {
+                    dispatch(setModalData(error))
+                    dispatch(setModal(true))
+                    setSubmitting(false)
+                    return
+                }
+                
+                setTimeout(() => {
+                    resetForm()
+                    setSubmitting(false)
+                    router.push('/home')
+                }, 2000)
+            })
         }}
     >
         {

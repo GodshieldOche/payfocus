@@ -3,7 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 // Define a type for the slice state
 export interface modalState {
     modalState: boolean
-    modalData: object
+    modalData: {
+        title: string,
+        func: () => void,
+        text: string,
+        buttonText: string,
+        type: string
+    }
 }
 
 
@@ -11,9 +17,14 @@ export interface modalState {
 
 // Define the initial state using that type
 const initialState: modalState = {
-    modalData: {},
-    modalState: true
-
+    modalData: {
+        title: '',
+        func: () => {},
+        text: '',
+        buttonText: '',
+        type: ''
+    },
+    modalState: false
 }
 
 export const modalSlice = createSlice({

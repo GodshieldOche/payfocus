@@ -4,25 +4,32 @@ import Image from 'next/image'
 import Button from '../../common/Button'
 
 type Props = {
-    close: () => void
+    close: () => void;
+    title: string
+    text: string
+    buttonText: string
+    type: string
 }
 
-const Desktop: React.FC<Props> = ({close}) => {
-
+const Desktop: React.FC<Props> = ({close, buttonText, text, title, type}) => {
   return (
     <div className='w-[460px] h-fit bg-light rounded-[10px] flex flex-col items-center py-[24px] px-[16px] space-y-5 '>
-        <h1 className='text-lg text-primaryOne font-[600] tracking-wide '>Recover Password</h1>
+        <h1 className='text-lg text-primaryOne font-[600] tracking-wide '>{title}</h1>
         <div className=''>
             <Image
                 src={vector}
             />
         </div>
         <div className='w-full mx-auto max-w-[323px]'>
-        <p className='text-mainBlack text-center'>Password reset link has been sent to the email entered with an OTP for verification</p>
+        <p className='text-mainBlack text-center'>{text}</p>
         </div>
-        <Button text='Proceed' handleSubmit={close} />
+        <Button text={buttonText} handleSubmit={close} />
     </div>
   )
 }
 
 export default Desktop
+
+
+// Recover Password
+// Password reset link has been sent to the email entered with an OTP for verification
