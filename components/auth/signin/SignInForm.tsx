@@ -58,7 +58,7 @@ const SignInForm: React.FC = () => {
                 setTimeout(() => {
                     resetForm()
                     setSubmitting(false)
-                    router.push('/')
+                    router.push('/dashboard/wallet')
                 }, 2000)
             })
         }}
