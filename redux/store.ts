@@ -14,12 +14,7 @@ const makeStore = () => configureStore({
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        // Ignore these action types
-        ignoredActions: ['modal/setModalData'],
-        // Ignore these paths in the state
-        ignoredPaths: ['modal.modalData.func'],
-      },
+      serializableCheck: false
     }),
 });
 

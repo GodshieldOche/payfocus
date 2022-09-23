@@ -58,7 +58,7 @@ const SignInForm: React.FC = () => {
                 setTimeout(() => {
                     resetForm()
                     setSubmitting(false)
-                    router.push('/home')
+                    router.push('/')
                 }, 2000)
             })
         }}
@@ -88,15 +88,15 @@ const SignInForm: React.FC = () => {
                          errors={errors.password}
                          touched={touched.password}
                      />
-
-                     <h3 
-                     className='text-right !mt-3 cursor-pointer'
-                     onClick={() => router.push('/auth/signin/password/reset')}
-                     >
-                        Reset Password
-                     </h3>
-
-
+                    <div className='w-full flex items-center justify-end !mt-3'>
+                        <h3 
+                        className='text-right cursor-pointer'
+                        onClick={() => router.push('/auth/signin/password/reset')}
+                        >
+                            Reset Password
+                        </h3>
+                    </div>
+                   
                      {/* Bttons */}
                      <div className='w-full h-full space-y-5 !mt-[56px]'>
                         <Button text="Sign In" handleSubmit={handleSubmit} isSubmitting={isSubmitting} />

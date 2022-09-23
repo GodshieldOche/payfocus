@@ -14,6 +14,10 @@ module.exports = {
       },
       fontFamily: {
         Poppins: ["Poppins, sans-serif"],
+      },
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        '16': 'repeat(20, minmax(0, 1fr))',
       }
     },
   },
