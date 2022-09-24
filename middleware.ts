@@ -21,11 +21,12 @@ export async function middleware(request: NextRequest) {
         user = await res.json()
     }
 
-    if (user) {
-        if (request.nextUrl.pathname.includes('/auth')) {
-            return NextResponse.redirect(new URL('/', request.url))
+    if (request.nextUrl.pathname.includes('/auth')) {
+        if (user) {
+            return NextResponse.redirect(new URL('/dashboard/wallet', request.url))
         }
     }
+    
 
     if(request.nextUrl.pathname.startsWith('/dashboard')) {
         if (!user) {
