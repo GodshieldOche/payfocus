@@ -15,45 +15,13 @@ const Home: NextPage = () => {
 }
 
 export async function getServerSideProps(context : any) {
-  const { req } = context
-  const { cookies } = req
-
-  // console.log(cookies.jwt)
-
-  const jwt = cookies.jwt
-
-  let user
-
-  const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json',  Authorization: `Bearer ${jwt}`},
-  };
-
-  if (jwt) {
-      const res = await fetch(`https://api.payfocuss.com/account/info`, requestOptions )
-      user = await res.json()
-  }
-
-  if (!user) {
-      return {
-          redirect: {
-              destination: '/auth/signin',
-              permanent: false
-          }
-      }
-  } 
-  
-  if (user) {
-    return {
-      redirect: {
-          destination: '/dashboard/wallet',
-          permanent: false
-      }
-    }
-  }
-
+ 
   return {
-      props: {}
+    props: {},
+    redirect: {
+      destination: '/dashboard/wallet',
+      permanent: false
+    }
   }
 }
 

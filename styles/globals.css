@@ -29,6 +29,10 @@
     width: 0px;
 }
 
+.scrollerMain::-webkit-scrollbar {
+    width: 4px !important;
+}
+
 .scroller::-webkit-scrollbar-track {
     background: #ffffff;
 }
