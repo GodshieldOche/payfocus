@@ -9,7 +9,7 @@ type Props = {
 
 const Button: React.FC<Props> = ({text, handleSubmit, isSubmitting}) => {
   return (
-    <button className='w-full h-fit bg-primaryOne font-medium text-light lg:py-[10px] xl:!py-[12px] rounded-[7px] '
+    <button className='w-full h-fit bg-primaryOne font-medium text-light py-[12px] rounded-[7px] '
     type='button'
     onClick={handleSubmit}
     >

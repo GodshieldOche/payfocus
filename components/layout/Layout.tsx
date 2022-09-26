@@ -16,15 +16,18 @@ const Layout : React.FC<any> = ({children}) => {
       {
         router.pathname.includes('/auth') 
         ? children
-        : <MainLayout> 
+        : 
+        <>
+          <MainLayout> 
             {children}
           </MainLayout>
+          <Footer />
+        </>
       }
       {
         modalState && 
         <Modal />
       }
-      <Footer />
     </div>
   )
 }
