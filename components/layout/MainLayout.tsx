@@ -4,14 +4,14 @@ import RightNav from './RightNav'
 
 const MainLayout: React.FC<any> = ({children}) => {
   return (
-    <div className=' w-full h-screen max-w-[1168px] mx-auto grid grid-cols-16'>
-        <div className='col-span-4 w-full h-full bg-white mb-10 '>
+    <div className=' w-full h-screen max-w-[1168px] flex flex-col mx-auto lg:grid lg:grid-cols-16'>
+        <div className='hidden lg:block lg:col-span-4 w-full h-full bg-white mb-10 '>
             <LeftNav />
         </div>
-        <div className='col-span-12  overflow-y-auto scroller border-x'>
+        <div className='lg:col-span-12 h-full  overflow-y-auto scroller '>
             {children}
         </div>
-        <div className='col-span-4 bg-white'>
+        <div className='hidden lg:block lg:col-span-4 order-first lg:order-3 bg-white'>
             <RightNav />
         </div>
     </div>

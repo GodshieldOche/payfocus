@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import MainLayout from './MainLayout'
 import { useSelector } from 'react-redux'
 import Modal from './modal/Modal'
+import Footer from './Footer'
 
 const Layout : React.FC<any> = ({children}) => {
 
@@ -23,6 +24,7 @@ const Layout : React.FC<any> = ({children}) => {
         modalState && 
         <Modal />
       }
+      <Footer />
     </div>
   )
 }
