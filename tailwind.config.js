@@ -10,7 +10,9 @@ module.exports = {
         light: '#FFFFFF',
         mainBlack: '#848383',
         primaryOne: '#3270FD',
-        secondaryOne: '#F5F5F5'
+        primaryTwo: '#69D942',
+        secondaryOne: '#F5F5F5',
+        secondaryTwo: '#D6F7CB',
       },
       fontFamily: {
         Poppins: ["Poppins, sans-serif"],
