@@ -16,7 +16,7 @@ const RightNav = () => {
               objectPosition={0}
             />
         </div>
-        <h1 className=' lg:!text-lg xl:!text-xl text-black !font-semibold '> John Doe</h1>
+        <h1 className=' lg:!text-lg xl:!text-xl text-black dark:text-light !font-semibold '> John Doe</h1>
       </div>
 
       <Button text="View Profile" handleSubmit={() => {}} />
