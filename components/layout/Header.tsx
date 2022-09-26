@@ -5,9 +5,9 @@ import Mobile from '../common/Mobile'
 
 const Header = () => {
   return (
-    <div className='relative w-full px-4 sm:px-[43px] pt-[24px] lg:pt-[64px] pb-[75px] bg-gradient-to-b from-[#133EA0] to-[#001030] '>
+    <div className='relative w-full px-4 sm:px-[43px] pt-[24px] lg:pt-[64px] pb-[66px] sm:pb-[75px] bg-gradient-to-b from-[#133EA0] to-[#001030] '>
       <Mobile />
-      <div className='grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-10 mt-[38px] lg:mt-0'>
+      <div className='grid grid-cols-2 gap-y-10 gap-x-4 sm:gap-10 mt-[38px] lg:mt-0'>
         <Card />
         <Card />
         <Card />
