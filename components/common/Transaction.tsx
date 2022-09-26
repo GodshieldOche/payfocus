@@ -10,8 +10,8 @@ const Transaction = () => {
         </div>
       </div>
       <div className='w-full flex items-center justify-between'>
-        <h1 className='text-base font-semibold text-black tracking-wider '>$ 20,000.00</h1>
-        <h3 className='text-sm font-medium '>23/02/23</h3>
+        <h1 className='text-sm lg:text-base font-semibold text-black tracking-wider '>$ 20,000.00</h1>
+        <h3 className='text-xs lg:text-sm font-medium '>23/02/23</h3>
       </div>
     </div>
   )
