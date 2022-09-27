@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux';
 import { postSignIn } from '../../../redux/features/auth';
 import { setModal, setModalData } from '../../../redux/features/modal';
+import { storeSession } from '../../../redux/features/session';
 
 const signinSchema = yup.object().shape({
     email: yup.string().email('Email address is incorrect').required('This field is required.'),
@@ -54,12 +55,15 @@ const SignInForm: React.FC = () => {
                     setSubmitting(false)
                     return
                 }
-                
-                setTimeout(() => {
-                    resetForm()
-                    setSubmitting(false)
-                    location.reload()
-                }, 2000)
+
+                dispatch(storeSession(res.payload.token)).then((res : any) => {
+                    setTimeout(() => {
+                        resetForm()
+                        setSubmitting(false)
+                        location.reload()
+                    }, 2000)
+                })
+               
             })
         }}
     >

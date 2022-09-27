@@ -6,7 +6,7 @@ import AuthLayout from '../../../../components/layout/AuthLayout'
 const OtpPage: NextPage = () => {
   return (
     <AuthLayout title='Enter OTP'>
-      <New />
+      <Otp />
     </AuthLayout>
   )
 }

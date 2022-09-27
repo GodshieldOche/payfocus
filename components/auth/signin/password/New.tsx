@@ -22,7 +22,7 @@ const New = () => {
 
   return (
     <div className='mt-5 w-full h-full space-y-10'>
-        <h1 className='text-xl xl:text-[22px] text-left font-[700] text-primaryOne tracking-wide '>Enter OTP</h1>
+        <h1 className='text-xl xl:text-[22px] text-left font-[700] text-primaryOne tracking-wide '>Enter New Password</h1>
             <Formik
             initialValues={initialValues}
             validationSchema={newPasswordSchema}

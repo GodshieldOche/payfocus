@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { AppState } from '../store'
 import axios from 'axios'
-import { storeSession } from './session'
 
 
 
@@ -18,20 +16,38 @@ export interface authState {
 
 
 export const postSignIn: any = createAsyncThunk(
-    `user/postSignIn`, async (body: any, { dispatch, rejectWithValue }) => {
+    `user/postSignIn`, async ({email}: any, { dispatch, rejectWithValue }) => {
 
         try {
-            const { data }: any = await axios.post(`https://api.payfocuss.com/auth`, body, {
+            const { data }: any = await axios.post(`https://api.payfocuss.com/auth`, email, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+            
+            dispatch(reset())
 
-            if(data.token) {
-                dispatch(storeSession(data.token)).then((res : any) => {
-                    dispatch(reset())
-                })
-            }
+            return data
+
+        } catch (error: any) {
+            return rejectWithValue(error.message)
+        }
+
+    }
+)
+
+
+export const resetPassword: any = createAsyncThunk(
+    `user/resetPassword`, async (body: any, { dispatch, rejectWithValue }) => {
+
+        try {
+            const { data }: any = await axios.get(`https://api.payfocuss.com/auth/recovery/${body}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            
+            dispatch(reset())
 
             return data
 
@@ -90,6 +106,17 @@ export const authSlice = createSlice({
             state.data = payload
         },
         [postSignIn.rejected]: (state, { payload }) => {
+            state.loading = false
+            state.error = payload
+        },
+        [resetPassword.pending]: (state) => {
+            state.loading = true
+        },
+        [resetPassword.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.data = payload
+        },
+        [resetPassword.rejected]: (state, { payload }) => {
             state.loading = false
             state.error = payload
         },

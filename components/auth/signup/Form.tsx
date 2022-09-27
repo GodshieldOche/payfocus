@@ -4,42 +4,93 @@ import * as yup from 'yup';
 import Input from '../../formik/Input';
 import Button from '../../common/Button';
 import TextButton from '../../common/TextButton';
+import { useDispatch } from 'react-redux';
+import { postRegister, reset } from '../../../redux/features/register';
+import { setModal, setModalData } from '../../../redux/features/modal';
+import { useRouter } from 'next/router';
 
 
 const signupSchema = yup.object().shape({
-    fullName: yup.string().required('This field is required.'),
+    name: yup.string().required('This field is required.'),
     email: yup.string().email('Email address is incorrect').required('This field is required.'),
-    phoneNumber: yup.string().required('This field is required.'),
+    phone: yup.string().required('This field is required.'),
     password: yup.string().min(8).required('This field is required.'),
 })
 
 interface signupValues {
-    fullName: string;
+    name: string;
     email: string;
     password: string;
-    phoneNumber: string;
+    phone: string;
   }
   
 
-const SignupForm = () => {
+const SignupForm: React.FC = () => {
 
+
+    const dispatch = useDispatch()
+    const router = useRouter()
 
     const initialValues: signupValues = {
-        fullName:'',
+        name:'',
         email: '',
         password: '',
-        phoneNumber: ''
+        phone: ''
     }
+
+    const error = {
+        title: 'Register Unsuccessful',
+        type: 'error',
+        text: 'Something went wrong',
+        buttonText: 'OK',
+        func: () => {dispatch(setModal(false))}
+    }
+
+
+    const success = {
+        title: 'Create Account',
+        type: 'success',
+        text: '',
+        buttonText: 'Proceed',
+        func: ''
+    }
+
 
 
   return (
     <Formik
         initialValues={initialValues}
         validationSchema={signupSchema}
-        onSubmit={(values, {resetForm, setSubmitting}) => {
-            console.log('submitted')
-            resetForm()
-            setSubmitting(false)
+        onSubmit={(data, {resetForm, setSubmitting}) => {
+            dispatch(postRegister(data)).then((res: any) => {
+                if(res.payload?.status === 'failed') {
+                    dispatch(setModalData({
+                        ...error,
+                        text: res?.payload?.message || 'Something went wrong'
+                    }))
+                    dispatch(setModal(true))
+                    setSubmitting(false)
+                    dispatch(reset())
+                    return
+                }
+
+                dispatch(setModalData({
+                    ...success,
+                    text: 'Enter the otp sent to your email and phone number to verify your account',
+                    func: () => {
+                        dispatch(setModal(false))
+                        router.push('/auth/signup/otp')
+                    }
+                }))
+                dispatch(setModal(true))
+                resetForm()
+                setSubmitting(false)
+                console.log(res)
+
+                resetForm()
+                setSubmitting(false)
+                
+            })
         }}
     >
         {
@@ -47,13 +98,13 @@ const SignupForm = () => {
                 <Form className="w-full space-y-7 pb-10">
                     <Input
                          label='Full Name'
-                         name='fullName'
+                         name='name'
                          type="text"
-                         value={values.fullName}
+                         value={values.name}
                          handleChange={handleChange}
                          placeholder='Full Name'
-                         errors={errors.fullName}
-                         touched={touched.fullName}
+                         errors={errors.name}
+                         touched={touched.name}
                      />
 
                     <Input
@@ -69,13 +120,13 @@ const SignupForm = () => {
 
                     <Input
                          label='Phone Number'
-                         name='phoneNumber'
+                         name='phone'
                          type="tel"
-                         value={values.phoneNumber}
+                         value={values.phone}
                          handleChange={handleChange}
                          placeholder='Phone Number'
-                         errors={errors.phoneNumber}
-                         touched={touched.phoneNumber}
+                         errors={errors.phone}
+                         touched={touched.phone}
                      />
 
                     <Input

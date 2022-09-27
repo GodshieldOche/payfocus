@@ -3,6 +3,7 @@ import { createWrapper } from "next-redux-wrapper";
 import modalReducer from "./features/modal"
 import authReducer from "./features/auth"
 import sessionReducer from "./features/session"
+import registerReducer from "./features/register"
 
 
 
@@ -10,6 +11,7 @@ const makeStore = () => configureStore({
     reducer: {
         modal: modalReducer,
         auth: authReducer,
+        register: registerReducer,
         session: sessionReducer,
     },
     middleware: (getDefaultMiddleware) =>

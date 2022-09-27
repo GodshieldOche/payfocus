@@ -29,6 +29,7 @@ const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touche
             <Field id={name} name={name} type={inputType} value={value}
               className={`input ${errors && touched ? 'border !border-red-300' : ''}`}
               onChange={handleChange}
+              autoComplete="off"
               placeholder={placeholder} 
               />
             {

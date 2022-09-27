@@ -4,10 +4,13 @@ import * as yup from 'yup';
 import Input from '../../../formik/Input';
 import Button from '../../../common/Button';
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux';
+import { resetPassword } from '../../../../redux/features/auth';
+import { reset, setModal, setModalData } from '../../../../redux/features/modal';
 
 
 const resetSchema = yup.object().shape({
-    email: yup.string().email('Email address is incorrect').required('This field is required.'),
+    email: yup.string().required('This field is required.'),
 })
 
 interface resetValues {
@@ -16,10 +19,19 @@ interface resetValues {
 
 const Reset: React.FC = () => {
 
+    const dispatch = useDispatch()
     const router = useRouter()
 
     const initialValues: resetValues = {
         email: '',
+    }
+
+    const success = {
+        title: 'Reset Password',
+        type: 'success',
+        text: '',
+        buttonText: 'Proceed',
+        func: ''
     }
 
   return (
@@ -28,11 +40,22 @@ const Reset: React.FC = () => {
         <Formik
         initialValues={initialValues}
         validationSchema={resetSchema}
-        onSubmit={(values, {resetForm, setSubmitting}) => {
-            console.log('submitted')
-            resetForm()
-            setSubmitting(false)
-            router.push('/auth/signin/password/otp')
+        onSubmit={(data, {resetForm, setSubmitting}) => {
+            dispatch(resetPassword(data)).then((res: any) => {
+                dispatch(setModalData({
+                    ...success,
+                    text: res.payload.message,
+                    func: () => {
+                        dispatch(setModal(false))
+                        dispatch(reset())
+                        router.push('/auth/signin/password/otp/?det=' + data.email)
+                    }
+                }))
+                dispatch(setModal(true))
+                resetForm()
+                setSubmitting(false)
+                console.log(res)
+            })
         }}
     >
         {
@@ -40,12 +63,12 @@ const Reset: React.FC = () => {
                 <Form className="w-full space-y-7 pb-10">
         
                     <Input
-                         label='Email Address'
+                         label='Email Address or Phone Number'
                          name='email'
                          type="email"
                          value={values.email}
                          handleChange={handleChange}
-                         placeholder='Email Address'
+                         placeholder=''
                          errors={errors.email}
                          touched={touched.email}
                      />
