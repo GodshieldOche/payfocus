@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import Modal from './modal/Modal'
 import Footer from './Footer'
 
-const Layout : React.FC<any> = ({children}) => {
+const Layout : React.FC<any> = ({children, currentUser}) => {
 
   const { modalState } = useSelector((state : any) => state.modal)
 
@@ -18,7 +18,7 @@ const Layout : React.FC<any> = ({children}) => {
         ? children
         : 
         <>
-          <MainLayout> 
+          <MainLayout currentUser={currentUser}> 
             {children}
           </MainLayout>
           <Footer />

@@ -1,22 +1,69 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { transaction } from '../../../pages/dashboard/wallet'
 import Transaction from '../../common/Transaction'
 import Tab from './Tab'
 
+interface Props {
+  transactions: transaction[]
+}
 
-const array  = [1,2,3,4,5,6,7, 8, 9, 10]
+const Body: React.FC<Props> = ({ transactions }) => {
 
-const Body = () => {
+  const [active, setActive] = useState<string>('All')
+  const [inflow, setInflow] = useState<any[]>([])
+  const [outflow, setOutflow] = useState<any[]>([])
+
+  useEffect(() => {
+    setInflow(prev => {
+      return transactions?.filter(item => item.type === 'inflow')
+    })
+
+    setOutflow(prev => {
+      return transactions?.filter(item => item.type === 'outflow')
+    })
+    
+  }, [transactions])
+  
+
   return (
     <div className='w-full h-full pb-24 !pt-[69px] px-4 sm:px-[43px] lg:px-6 space-y-6'>
         <h1 className=' text-base lg:text-xl text-primaryOne  '>Recent Transactions</h1>
-        <Tab />
-        <div className='space-y-4'>
-         {
-            array.map((iem: any) => (
-                <Transaction key={iem} />
-            ))
+        <Tab setActive={setActive} active={active} />
+
+        {
+          active === 'All' 
+          && <div className='space-y-4'>
+              {
+                  transactions?.map((item: transaction) => (
+                      <Transaction price={item.amount} type={item.type} date={item.completed} key={item.id} />
+                  ))
+              }
+            </div>
         }
-        </div>
+
+        {
+          active === 'Inflow' 
+          && <div className='space-y-4'>
+              {
+                  inflow?.map((item: transaction) => (
+                      <Transaction price={item.amount} type={item.type} date={item.completed} key={item.id} />
+                  ))
+              }
+            </div>
+        }
+
+
+        {
+          active === 'Outflow' 
+          && <div className='space-y-4'>
+              {
+                  outflow?.map((item: transaction) => (
+                      <Transaction price={item.amount} type={item.type} date={item.completed} key={item.id} />
+                  ))
+              }
+            </div>
+        }
+        
     </div>
   )
 }

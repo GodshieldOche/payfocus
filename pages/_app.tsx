@@ -3,15 +3,42 @@ import type { AppProps } from 'next/app'
 import { wrapper } from '../redux/store'
 import { ThemeProvider } from 'next-themes'
 import Layout from '../components/layout/Layout'
+import App from 'next/app'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: any) {
   return ( 
     <ThemeProvider attribute='class'>
-       <Layout>
+       <Layout currentUser={pageProps.currentUser}>
         <Component {...pageProps} />
       </Layout>
     </ThemeProvider>
   )
 }
 
-export default wrapper.withRedux(MyApp) 
+MyApp.getInitialProps = async (appContext: any) => {
+    // calls page's `getInitialProps` and fills `appProps.pageProps`
+    const appProps = await App.getInitialProps(appContext);
+
+    const {jwt} = appContext.ctx.req.cookies
+
+    let user
+
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json',  Authorization: `Bearer ${jwt}`},
+    };
+
+    if (jwt) {
+        const res = await fetch(`https://api.payfocuss.com/account/info`, requestOptions )
+        user = await res.json()
+    }
+
+    return { 
+      pageProps: {
+        ...appProps.pageProps,
+        currentUser: user
+      },
+     }
+  }
+
+export default wrapper.withRedux(MyApp)
