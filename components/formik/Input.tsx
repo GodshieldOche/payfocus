@@ -27,7 +27,7 @@ const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touche
           <label htmlFor={name} className=" "><h3>{label}</h3></label>
           <div className='w-full h-full relative'>
             <Field id={name} name={name} type={inputType} value={value}
-              className={`input ${errors && touched ? 'border !border-red-400 dark:border-0 ' : ''}`}
+              className={`input `}
               onChange={handleChange}
               autoComplete="off"
               placeholder={placeholder} 

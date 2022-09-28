@@ -149,7 +149,7 @@ const Body = () => {
 
                         {/* Bttons */}
                         <div className='w-full h-full space-y-5 !mt-[56px]'>
-                            <Button text="Swap Now" handleSubmit={handleSubmit} isSubmitting={isSubmitting} />
+                            <Button text="Transfer" handleSubmit={handleSubmit} isSubmitting={isSubmitting} />
                         </div>
 
                     </Form>

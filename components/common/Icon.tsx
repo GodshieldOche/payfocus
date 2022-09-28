@@ -15,7 +15,7 @@ const IconLink: React.FC<Props> = ({active, text, icon }) => {
       <a>
         <div className={`flex flex-col lg:flex-row 
         items-center lg:w-full lg:pl-4 xl:pl-[32px] lg:py-3 cursor-pointer xl:rounded-l-[7px] 
-        ${active ? 'lg:bg-primaryOne/10 !text-primaryOne lg:border-r-[8px] xl:border-r-[10px] border-primaryOne ' : '' }
+        ${active ? 'lg:bg-primaryOne/10 !text-primaryOne lg:border-r-[6px] xl:border-r-[10px] border-primaryOne ' : '' }
         lg:space-x-4 xl:space-x-5  space-y-2 lg:space-y-0
         `}>
             <Icon icon={icon} className={`!text-2xl sm:!text-3xl ${active ? '!text-primaryOne' : '!text-mainBlack'}  `} />
