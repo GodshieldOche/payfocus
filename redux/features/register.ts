@@ -42,7 +42,7 @@ export const verifyAccount: any = createAsyncThunk(
     `user/verifyAccount`, async ({otp, token}: any, { dispatch, rejectWithValue }) => {
 
         try {
-            const { data }: any = await axios.get(`https://api.payfocuss.com/auth/recovery?otp=${otp}`, {
+            const { data }: any = await axios.get(`https://api.payfocuss.com/auth?otp=${otp}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -130,7 +130,6 @@ export const registerSlice = createSlice({
         },
         [resendOtp.fulfilled]: (state, { payload }) => {
             state.loading = false
-            state.data = payload
         },
         [resendOtp.rejected]: (state, { payload }) => {
             state.loading = false

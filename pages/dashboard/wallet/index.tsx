@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Wallet from '../../components/dashboard/wallet/Wallet'
+import Wallet from '../../../components/dashboard/wallet/Wallet'
 import axios from 'axios'
-import { User } from '../../components/layout/RightNav'
+import { User } from '../../../components/layout/RightNav'
 
 
 export type transaction =  {
@@ -45,9 +45,14 @@ const WalletPage: NextPage<any> = ( props ) => {
   )
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps({req, res}: any) {
+
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
   
-  const { jwt } = context.req.cookies
+  const { jwt } = req.cookies
 
   let balances
   let transactions
@@ -69,8 +74,7 @@ export async function getServerSideProps(context: any) {
 
   balances = dataOne.data
   transactions = dataTwo.data
-  // console.log(balances)
-  // console.log(transactions)
+ 
 
   // Pass data to the page via props
   return { 

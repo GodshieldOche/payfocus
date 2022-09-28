@@ -50,7 +50,7 @@ const Otp = () => {
     }
 
     const resendOTP = async () => {
-        dispatch(resendOtp({email: userData?.data?.email, token: userData?.data?.token })).then((res: any) => {
+        dispatch(resendOtp({email: userData?.data?.email || null, token: userData?.data?.token || '' })).then((res: any) => {
             if(res.error || res.payload.status === 'failed') {
                 dispatch(setModalData({
                     ...error,
@@ -59,7 +59,6 @@ const Otp = () => {
                 dispatch(setModal(true))
                 return
             }
-
 
             dispatch(setModalData({
                 ...success,
@@ -82,7 +81,9 @@ const Otp = () => {
             initialValues={initialValues}
             validationSchema={otpSchema}
             onSubmit={(data, {resetForm, setSubmitting}) => {
-                dispatch(verifyAccount({otp: data.otp, token: userData.data.token })).then((res: any) => {
+                dispatch(verifyAccount({otp: Number(data.otp), token: userData?.data?.token || '' })).then((res: any) => {
+                    console.log(userData?.data?.token)
+                    console.log(res)
                     if(res.error || res.payload.status === 'failed') {
                         dispatch(setModalData({
                             ...error,

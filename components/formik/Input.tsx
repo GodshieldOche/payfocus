@@ -6,7 +6,7 @@ import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri'
 interface Props {
     label: string;
     name: string;
-    value: string;
+    value: string | number | undefined;
     placeholder: string;
     type: string;
     handleChange: any;
@@ -27,7 +27,7 @@ const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touche
           <label htmlFor={name} className=" "><h3>{label}</h3></label>
           <div className='w-full h-full relative'>
             <Field id={name} name={name} type={inputType} value={value}
-              className={`input ${errors && touched ? 'border !border-red-300' : ''}`}
+              className={`input ${errors && touched ? 'border !border-red-400 dark:border-0 ' : ''}`}
               onChange={handleChange}
               autoComplete="off"
               placeholder={placeholder} 
@@ -48,7 +48,7 @@ const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touche
                 </div>
             }
           </div>
-          <ErrorMessage className="text-xs font-medium !text-red-300" name={name} component="div" />
+          <ErrorMessage className="text-xs font-medium !text-red-400" name={name} component="div" />
     </div>
   )
 }

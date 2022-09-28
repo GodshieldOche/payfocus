@@ -25,9 +25,9 @@ interface Props {
 
 const RightNav: React.FC<Props> = ({currentUser}) => {
   return (
-    <div className='mt-20 flex flex-col items-center lg:space-y-6 xl:space-y-7 px-6'>
+    <div className='mt-10 flex flex-col items-center lg:space-y-6 xl:space-y-7 px-6'>
       <div className='flex flex-col space-y-3 items-center justify-center'>
-        <div className='relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-mainBlack/60 rounded-full'>
+        <div className='relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full'>
             <Image 
               src={currentUser.logo}
               layout='fill'

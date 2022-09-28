@@ -6,7 +6,7 @@ import IconLink from '../common/Icon'
 
 const LeftNav = () => {
   return (
-    <div className='mt-24 flex flex-col items-center space-y-10 '>
+    <div className='mt-12 flex flex-col items-center space-y-10 '>
         <div>
             <Image src={logo}/>
         </div>

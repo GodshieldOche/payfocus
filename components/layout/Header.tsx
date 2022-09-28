@@ -23,9 +23,9 @@ const Header: React.FC<Props> = ({balances, currentUser}) => {
         }
       </div>
       <div className='right-0 left-0 -bottom-7 absolute w-full flex items-center justify-around px-4 sm:px-[40px]'>
-        <Box icon="carbon:add-filled" text="Fund" />
-        <Box icon="ic:baseline-swap-horizontal-circle" text="Swap" />
-        <Box icon="bi:arrow-up-circle-fill"  text="Transfer" />
+        <Box icon="carbon:add-filled" text="fund" />
+        <Box icon="ic:baseline-swap-horizontal-circle" text="swap" />
+        <Box icon="bi:arrow-up-circle-fill"  text="transfer" />
         {/* <Box />
         <Box /> */}
       </div>

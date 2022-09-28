@@ -16,7 +16,7 @@ const AuthLayout: React.FC<any> = ({children, title}) => {
             <meta name="description" content="PayFocus by Uniccon group" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className='w-full h-full min-h-screen grid grid-cols-12 gap-10 xl:gap-14 font-Poppins'>
+        <div className='!w-full h-full min-h-screen bg-light dark:bg-dark grid grid-cols-12 lg:gap-5 xl:gap-14 font-Poppins'>
 
             <div className='col-span-12 lg:col-span-5 pt-[30px] px-4 sm:px-0 lg:pl-[35px] xl:pl-[50px] w-full max-w-lg mx-auto lg:mx-0 lg:max-w-full  '>
 

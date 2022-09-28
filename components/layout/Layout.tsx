@@ -12,7 +12,7 @@ const Layout : React.FC<any> = ({children, currentUser}) => {
   const router = useRouter()
 
   return (
-    <div className='relative w-full h-full bg-light dark:bg-dark '>
+    <div className='relative w-full h-full font-Poppins bg-light dark:bg-dark '>
       {
         router.pathname.includes('/auth') 
         ? children
