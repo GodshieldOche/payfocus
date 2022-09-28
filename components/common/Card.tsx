@@ -27,7 +27,7 @@ const Card : React.FC<Props> = ({currency, balance}) => {
         </div>
         <div className='flex justify-start'>
             <h4 className='text-sm sm:text-base text-primaryOne font-semibold leading-5'>{
-               show ? balance : '********'
+               show ? balance : '******'
             }</h4>
         </div>
 

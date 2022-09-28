@@ -8,7 +8,7 @@ const MainLayout: React.FC<any> = ({children, currentUser}) => {
         <div className='hidden h-full lg:block lg:col-span-4 w-full bg-white dark:bg-dark mb-10 '>
             <LeftNav />
         </div>
-        <div className='lg:col-span-12 h-full  overflow-y-auto scroller '>
+        <div className='lg:col-span-12 h-full  overflow-y-auto scroller pb-20 '>
             {children}
         </div>
         <div className='hidden h-full lg:block lg:col-span-4 order-first lg:order-3 bg-white dark:bg-dark'>

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Fund from '../../../components/dashboard/wallet/fund/Fund'
-import Swap from '../../../components/dashboard/wallet/swap/Swap'
+import Transfer from '../../../components/dashboard/wallet/transfer/Transfer'
 
 const SwapPage: NextPage<any> = ( props ) => {
 
@@ -9,11 +9,11 @@ const SwapPage: NextPage<any> = ( props ) => {
   return (
     <div>
         <Head>
-            <title>Pay Focus | Currency Exchange</title>
+            <title>Pay Focus | Trannsfer</title>
             <meta name="description" content="PayFocus by Uniccon group" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-       <Swap />
+       <Transfer />
     </div>
   )
 }
