@@ -85,7 +85,7 @@ const Body = () => {
 
                         {
                             values.type === "Bank Account" 
-                            ?  
+                            &&
                                 <>
                                     <Input
                                         label='Enter Account Number'
@@ -117,23 +117,27 @@ const Body = () => {
                                         touched={touched.accountName}
                                     /> 
                                 </>
-                            :  
-                                <>
-                                    <Input
-                                        label='Find Recepient by Email, Phone or Name'
-                                        name='recepient'
-                                        type="text"
-                                        value={values.recepient}
-                                        handleChange={handleChange}
-                                        placeholder='Find Recepient by Email, Phone or Name'
-                                        errors={errors.recepient}
-                                        touched={touched.recepient}
-                                    /> 
-                                </>
+                          
+                        }
+                        {
+
+                            values.type === 'Payfocus Account' &&
+                            <>
+                                <Input
+                                    label='Find Recepient by Email, Phone or Name'
+                                    name='recepient'
+                                    type="text"
+                                    value={values.recepient}
+                                    handleChange={handleChange}
+                                    placeholder='Find Recepient by Email, Phone or Name'
+                                    errors={errors.recepient}
+                                    touched={touched.recepient}
+                                /> 
+                            </>
                         }
 
                         <Input
-                            label='Naration (Optional)'
+                            label='Narration (Optional)'
                             name='narration'
                             type="text"
                             value={values.narration}
