@@ -35,7 +35,7 @@ const Body: React.FC<Props> = ({ transactions }) => {
           && <div className='space-y-4'>
               {
                   transactions?.map((item: transaction) => (
-                      <Transaction price={item.amount} type={item.type} date={item.completed} key={item.id} />
+                      <Transaction price={item.amount} type={item.type} date={item.completed} id={item.id} key={item.id} />
                   ))
               }
             </div>
@@ -46,7 +46,7 @@ const Body: React.FC<Props> = ({ transactions }) => {
           && <div className='space-y-4'>
               {
                   inflow?.map((item: transaction) => (
-                      <Transaction price={item.amount} type={item.type} date={item.completed} key={item.id} />
+                      <Transaction price={item.amount} type={item.type} date={item.completed} id={item.id} key={item.id} />
                   ))
               }
             </div>
@@ -58,7 +58,7 @@ const Body: React.FC<Props> = ({ transactions }) => {
           && <div className='space-y-4'>
               {
                   outflow?.map((item: transaction) => (
-                      <Transaction price={item.amount} type={item.type} date={item.completed} key={item.id} />
+                      <Transaction price={item.amount} type={item.type} date={item.completed} id={item.id} key={item.id} />
                   ))
               }
             </div>

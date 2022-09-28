@@ -38,6 +38,14 @@ select {
     @apply w-full outline-none text-sm  placeholder:text-mainBlack/70 py-[15px] pl-[12px] bg-secondaryOne dark:bg-[#1f2e55] rounded-[7px] text-mainBlack
 }
 
+ .left {
+    @apply font-semibold text-sm sm:text-base text-primaryOne
+}
+
+.right {
+    @apply font-medium text-[13px] sm:text-base
+}
+
 
 .scroller::-webkit-scrollbar {
     width: 0px;

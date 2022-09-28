@@ -9,7 +9,7 @@ import NextNProgress from 'nextjs-progressbar'
 function MyApp({ Component, pageProps }: any) {
   return ( 
     <ThemeProvider attribute='class'>
-       <NextNProgress color='#358DEB' />
+       <NextNProgress color='#f59e0b' />
        <Layout currentUser={pageProps.currentUser}>
         <Component {...pageProps} />
       </Layout>

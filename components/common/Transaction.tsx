@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react'
 import { HiArrowDown, HiArrowUp } from 'react-icons/hi'
 
@@ -5,11 +6,17 @@ interface Props {
   price: string;
   date: string
   type: string
+  id: string
 }
 
-const Transaction: React.FC<Props> = ({price, date, type}) => {
+const Transaction: React.FC<Props> = ({price, date, type, id}) => {
+
+  const router = useRouter()
+
   return (
-    <div className=' px-2 py-4 lg:p-4 rounded-[6px] border border-secondaryOne dark:border-0 dark:bg-darkOne w-full flex items-center justify-center space-x-4  '>
+    <div 
+      onClick={() => router.push(`/dashboard/wallet/transaction/${id}`)}
+      className=' px-2 py-4 lg:p-4 rounded-[6px] border border-secondaryOne cursor-pointer dark:border-0 dark:bg-darkOne w-full flex items-center justify-center space-x-4  '>
       
       {
         type === 'inflow' 

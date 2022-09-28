@@ -11,11 +11,11 @@ const LeftNav = () => {
             <Image src={logo}/>
         </div>
         <div className='w-full flex flex-col space-y-7'>
-            <IconLink active={true} text='Wallet' icon="entypo:wallet" />
-            <IconLink active={false} text='Payments' icon="material-symbols:payments-outline-rounded" />
-            <IconLink active={false} text='Cards' icon="wpf:bank-cards" />
-            <IconLink active={false} text='Settings' icon="eva:settings-fill" />
-            <IconLink active={false} text='Notifications' icon="clarity:notification-solid" />
+            <IconLink active={true} text='wallet' icon="entypo:wallet" />
+            <IconLink active={false} text='payments' icon="material-symbols:payments-outline-rounded" />
+            <IconLink active={false} text='cards' icon="wpf:bank-cards" />
+            <IconLink active={false} text='settings' icon="eva:settings-fill" />
+            <IconLink active={false} text='notifications' icon="clarity:notification-solid" />
         </div>
     </div>
   )
