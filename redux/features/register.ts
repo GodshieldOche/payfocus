@@ -45,7 +45,7 @@ export const verifyAccount: any = createAsyncThunk(
             const { data }: any = await axios.get(`https://api.payfocuss.com/auth/recovery?otp=${otp}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVZ2xpZnkzNjUiLCJzaWQiOiIzMWJlNTc3Ny0zIiwianRpIjoiMmM5NWU4NjUtNTk0Ni00MjFkLTgwNWQtMTdjZWQ2YTYwYjNkIiwiaWF0IjoiMDkvMjcvMjAyMiAxNTo1MTowNSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImdvZGR5YXJ0ejAyNThAZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkdvZHNoaWVsZCBPY2hlIEdvZHNoaWVsZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjMxYmU1Nzc3LTMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ByaW1hcnlncm91cHNpZCI6Imh0dHBzOi8vdWktYXZhdGFycy5jb20vYXBpLz9iYWNrZ3JvdW5kPTBEOEFCQyZjb2xvcj1mZmYmbmFtZT1HIiwiZXhwIjoxNjY0Mjk0NDY1LCJpc3MiOiJodHRwczovL2FwaS5wYXlmb2N1c3MuY29tIiwiYXVkIjoiaHR0cHM6Ly9hcGkucGF5Zm9jdXNzLmNvbSJ9.flIUk8HCw1cSSw_KC0plYiryFIKWBNanhou5oOFDGSY`
+                    'Authorization': `Bearer ${token}`
                 }
             })
             
@@ -122,6 +122,17 @@ export const registerSlice = createSlice({
             state.data = payload
         },
         [verifyAccount.rejected]: (state, { payload }) => {
+            state.loading = false
+            state.error = payload
+        },
+        [resendOtp.pending]: (state) => {
+            state.loading = true
+        },
+        [resendOtp.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.data = payload
+        },
+        [resendOtp.rejected]: (state, { payload }) => {
             state.loading = false
             state.error = payload
         },

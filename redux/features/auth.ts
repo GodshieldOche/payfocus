@@ -16,10 +16,10 @@ export interface authState {
 
 
 export const postSignIn: any = createAsyncThunk(
-    `user/postSignIn`, async ({email}: any, { dispatch, rejectWithValue }) => {
+    `user/postSignIn`, async (body: any, { dispatch, rejectWithValue }) => {
 
         try {
-            const { data }: any = await axios.post(`https://api.payfocuss.com/auth`, email, {
+            const { data }: any = await axios.post(`https://api.payfocuss.com/auth`, body, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
