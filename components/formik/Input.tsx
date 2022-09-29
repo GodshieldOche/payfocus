@@ -6,7 +6,7 @@ import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri'
 interface Props {
     label: string;
     name: string;
-    value: string | number | undefined;
+    value: string | number ;
     placeholder: string;
     type: string;
     handleChange: any;

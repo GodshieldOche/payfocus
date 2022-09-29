@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik, Form} from 'formik';
 import * as yup from 'yup';
 import Input from '../../../formik/Input';
 import Button from '../../../common/Button';
 import Select from '../../../formik/Select';
+import { balance } from '../../../../pages/dashboard/wallet';
+import { useDispatch } from 'react-redux';
+import { postSwap } from '../../../../redux/features/swap';
+import { getSession } from '../../../../redux/features/session';
+import { reset, setModal, setModalData } from '../../../../redux/features/modal';
+import { useRouter } from 'next/router';
 
 
 const fundSchema = yup.object().shape({
@@ -18,12 +24,53 @@ interface fundValues {
     amount: string;
 }
 
-const Body = () => {
+interface Props {
+    balances: balance[]
+}
+
+export type options = {name: string, value: string}[]
+
+const Body: React.FC <Props> = ({balances}) => {
+
+    const [options, setOptions] = useState<options>([])
+
+    useEffect(() => {
+        setOptions(prev => balances.map((item: balance) => {
+            return {
+                name: item.balance,
+                value: item.id
+            }
+        }))
+    }, [balances])
 
     const initialValues: fundValues = {
         source: '',
         target: '',
         amount: ''
+    }
+
+    const dispatch = useDispatch()
+    const router = useRouter()
+
+
+    const error = {
+        title: 'Swap Unsuccessful',
+        type: 'error',
+        text: 'Something went wrong',
+        buttonText: 'OK',
+        func: () => {dispatch(setModal(false))}
+    }
+
+
+    const success = {
+        title: 'Swap Successful',
+        type: 'success',
+        text: 'Currency exchange successful, your target wallet has been credited accordingly',
+        buttonText: 'Proceed',
+        func: () => {
+            router.push('/dashboard/wallet/swap')
+            dispatch(setModal(false))
+        }
     }
 
 
@@ -33,7 +80,32 @@ const Body = () => {
             initialValues={initialValues}
             validationSchema={fundSchema}
             onSubmit={(data, {resetForm, setSubmitting}) => {
-                
+                const body = {
+                    src: data.source,
+                    dst: data.target,
+                    amountDst: data.amount
+                }
+
+                dispatch(getSession()).then((res:any) => {
+                    dispatch(postSwap({body, token: res?.payload?.token}))
+                    .then((res: any) => {
+                        if(res.payload?.status === 'failed' || res.error) {
+                            dispatch(setModalData({
+                                ...error,
+                                text: res?.payload?.message || 'Something went wrong'
+                            }))
+                            dispatch(setModal(true))
+                            setSubmitting(false)
+                            return
+                        }
+                        
+                        dispatch(setModalData(success))
+                        dispatch(setModal(true))
+                        resetForm()
+                        setSubmitting(false)
+                    })
+                })
+
             }}
         >
             {
@@ -47,7 +119,7 @@ const Body = () => {
                             handleChange={handleChange}
                             errors={errors.source}
                             touched={touched.source}
-                            options={['Select Source Wallet', 'USD', 'EUR', 'GPB', 'NGN']}
+                            options={[{value: '1', name: 'From'}, ...options]}
                          />
 
                         <Select
@@ -57,13 +129,13 @@ const Body = () => {
                             handleChange={handleChange}
                             errors={errors.target}
                             touched={touched.target}
-                            options={['Select Target Wallet', 'USD', 'EUR', 'GPB', 'NGN']}
+                            options={[{value: '1', name: 'To'}, ...options]}
                          />
             
                         <Input
                             label='Amount'
                             name='amount'
-                            type="text"
+                            type="number"
                             value={values.amount}
                             handleChange={handleChange}
                             placeholder='Enter Amount'

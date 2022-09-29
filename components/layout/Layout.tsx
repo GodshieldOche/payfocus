@@ -4,6 +4,7 @@ import MainLayout from './MainLayout'
 import { useSelector } from 'react-redux'
 import Modal from './modal/Modal'
 import Footer from './Footer'
+import IframeModal from './modal/IframeModal'
 
 const Layout : React.FC<any> = ({children, currentUser}) => {
 
@@ -21,6 +22,7 @@ const Layout : React.FC<any> = ({children, currentUser}) => {
           <MainLayout currentUser={currentUser}> 
             {children}
           </MainLayout>
+          {/* <IframeModal /> */}
           <Footer />
         </>
       }

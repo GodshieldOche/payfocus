@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik, Form} from 'formik';
 import * as yup from 'yup';
 import Input from '../../../formik/Input';
 import Button from '../../../common/Button';
 import Select from '../../../formik/Select';
+import { options } from '../swap/Body';
+import { balance } from '../../../../pages/dashboard/wallet';
+import { Banks, TransferProp } from './Transfer';
 
 
 const transferSchema = yup.object().shape({
@@ -28,7 +31,27 @@ interface transferValues {
     accountName?: string;
 }
 
-const Body = () => {
+const Body: React.FC<TransferProp> = ({balances, banks}) => {
+
+    const [options, setOptions] = useState<options>([])
+    const [bankOptions, setBankOptions] = useState<options>([])
+
+    useEffect(() => {
+        setOptions(prev => balances.map((item: balance) => {
+            return {
+                name: item.balance,
+                value: item.id
+            }
+        }))
+
+        setBankOptions(prev => banks.map((item: Banks) => {
+            return {
+                name: item.name,
+                value: item.id
+            }
+        }))
+    }, [balances, banks])
+
     const initialValues: transferValues = {
         type: '',
         wallet: '',
@@ -59,7 +82,11 @@ const Body = () => {
                             handleChange={handleChange}
                             errors={errors.type}
                             touched={touched.type}
-                            options={['Please Select', 'Payfocus Account', 'Bank Account']}
+                            options={[
+                                {name:'Please Select', value:'Please Select'}, 
+                                {name:'Payfocus Account', value: 'Payfocus Account'},
+                                {name:'Bank Account', value: 'Bank Account'}
+                                ]}
                          />
 
                         <Select
@@ -69,13 +96,13 @@ const Body = () => {
                             handleChange={handleChange}
                             errors={errors.wallet}
                             touched={touched.wallet}
-                            options={['Please Select', 'Payfocus Account', 'Bank Account']}
+                            options={[{name:'Please Select', value:'Please Select'}, ...options]}
                          />
             
                         <Input
                             label='Amount'
                             name='amount'
-                            type="text"
+                            type="number"
                             value={values.amount}
                             handleChange={handleChange}
                             placeholder='Enter Amount'
@@ -91,7 +118,7 @@ const Body = () => {
                                         label='Enter Account Number'
                                         name='accountNumber'
                                         type="text"
-                                        value={values.accountName}
+                                        value={values.accountName!}
                                         handleChange={handleChange}
                                         placeholder='Account Number'
                                         errors={errors.accountName}
@@ -104,13 +131,13 @@ const Body = () => {
                                         handleChange={handleChange}
                                         errors={errors.bank}
                                         touched={touched.bank}
-                                        options={['Select Bank Name', 'Payfocus Account', 'Bank Account']}
+                                        options={[{ name: 'Bank', value: '0'}, ...bankOptions]}
                                     />   
                                     <Input
                                         label='Account Holder Name'
                                         name='accountName'
                                         type="text"
-                                        value={values.accountName}
+                                        value={values.accountName!}
                                         handleChange={handleChange}
                                         placeholder='Account Holder Name'
                                         errors={errors.accountName}
@@ -127,7 +154,7 @@ const Body = () => {
                                     label='Find Recepient by Email, Phone or Name'
                                     name='recepient'
                                     type="text"
-                                    value={values.recepient}
+                                    value={values.recepient!}
                                     handleChange={handleChange}
                                     placeholder='Find Recepient by Email, Phone or Name'
                                     errors={errors.recepient}
@@ -140,7 +167,7 @@ const Body = () => {
                             label='Narration (Optional)'
                             name='narration'
                             type="text"
-                            value={values.narration}
+                            value={values.narration!}
                             handleChange={handleChange}
                             placeholder='Narration'
                             errors={errors.narration}

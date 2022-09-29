@@ -1,6 +1,6 @@
+import axios from 'axios'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Fund from '../../../components/dashboard/wallet/fund/Fund'
 import Swap from '../../../components/dashboard/wallet/swap/Swap'
 
 const SwapPage: NextPage<any> = ( props ) => {
@@ -13,7 +13,7 @@ const SwapPage: NextPage<any> = ( props ) => {
             <meta name="description" content="PayFocus by Uniccon group" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-       <Swap />
+       <Swap balances={props.balances} />
     </div>
   )
 }
@@ -21,11 +21,30 @@ const SwapPage: NextPage<any> = ( props ) => {
 export async function getServerSideProps({req, res}: any) {
  
 
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+  
+  const { jwt } = req.cookies
+
+  let balances
+
+  const dataOne = await axios.get('https://api.payfocuss.com/balance', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwt}`
+    }
+  })
+
+
+  balances = dataOne.data
+
   // Pass data to the page via props
   return { 
     props: { 
-      
-   } 
+      balances
+   }
   }
 }
 

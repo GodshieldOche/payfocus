@@ -33,6 +33,18 @@ select {
     }
 
 
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 
  .input {
     @apply w-full outline-none text-sm  placeholder:text-mainBlack/70 py-[15px] pl-[12px] bg-secondaryOne dark:bg-[#1f2e55] rounded-[7px] text-mainBlack

@@ -4,6 +4,8 @@ import modalReducer from "./features/modal"
 import authReducer from "./features/auth"
 import sessionReducer from "./features/session"
 import registerReducer from "./features/register"
+import swapReducer from "./features/swap"
+import fundReducer from "./features/fund"
 
 
 
@@ -13,6 +15,8 @@ const makeStore = () => configureStore({
         auth: authReducer,
         register: registerReducer,
         session: sessionReducer,
+        swap: swapReducer,
+        fund: fundReducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

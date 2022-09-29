@@ -85,11 +85,6 @@ const SignupForm: React.FC = () => {
                 dispatch(setModal(true))
                 resetForm()
                 setSubmitting(false)
-                console.log(res)
-
-                resetForm()
-                setSubmitting(false)
-                
             })
         }}
     >

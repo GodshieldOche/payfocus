@@ -1,6 +1,8 @@
 import { ErrorMessage, Field } from 'formik';
 import React from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
+import { balance } from '../../pages/dashboard/wallet';
+import { options } from '../dashboard/wallet/swap/Body';
 
 interface Props {
     label: string;
@@ -9,7 +11,7 @@ interface Props {
     handleChange: any;
     errors: any;
     touched: any;
-    options: string[];
+    options: options;
 }
 
 const Select: React.FC<Props> = ({ label, name, errors, touched, value, options, handleChange }) => {
@@ -24,8 +26,8 @@ const Select: React.FC<Props> = ({ label, name, errors, touched, value, options,
                  >
                     {
                         options.map((option, index) => (
-                            <option className='!space-y-2' key={index} value={option}>
-                                {option}
+                            <option className='!space-y-2' key={index} value={option.value}>
+                                {option.name}
                             </option>
                         ))
                     }

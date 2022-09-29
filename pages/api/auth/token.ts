@@ -5,11 +5,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse ) {
 
     const jwt = cookies.jwt;
 
-    if (jwt) {
-        res.status(200).json({ token: jwt })
-    } else {
-        res.status(400).json({ token: null })
-    }
+    res.status(200).json({ token: jwt })
 
 }
 
