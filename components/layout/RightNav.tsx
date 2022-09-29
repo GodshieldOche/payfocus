@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import Button from '../common/Button'
 import Toggle from '../common/Toggle'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../redux/features/session'
 
 export type User = {
   id: string,
@@ -23,11 +25,26 @@ interface Props {
   currentUser: User
 }
 
+
+
 const RightNav: React.FC<Props> = ({currentUser}) => {
+
+  const dispatch = useDispatch()
+
+  const handleClick = async (e: any) => {
+    dispatch(logout()).then((res: any) => {
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
+    })
+  }
+
   return (
     <div className='mt-10 flex flex-col items-center lg:space-y-6 xl:space-y-7 px-6'>
       <div className='flex flex-col space-y-3 items-center justify-center'>
-        <div className='relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full'>
+        <div 
+          onClick={handleClick}
+          className='relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full'>
             <Image 
               src={currentUser.logo}
               layout='fill'

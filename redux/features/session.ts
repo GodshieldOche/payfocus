@@ -47,6 +47,28 @@ export const getSession: any = createAsyncThunk(
 )
 
 
+export const logout: any = createAsyncThunk(
+    `user/logout`, async (obj: any, { dispatch, rejectWithValue }) => {
+
+        try {
+            const { data }: any = await axios.post(`/api/auth/logout`, {}, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            dispatch(reset())
+            
+            return data
+
+        } catch (error: any) {
+            return rejectWithValue(error.message)
+        }
+
+    }
+)
+
+
 // Define a type for the slice state
 interface sessionState {
     loading: boolean;
@@ -92,6 +114,17 @@ export const sessionSlice = createSlice({
             state.data = payload.token
         },
         [getSession.rejected]: (state, { payload }) => {
+            state.loading = false
+            state.error = payload
+        },
+        [logout.pending]: (state) => {
+            state.loading = true
+        },
+        [logout.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.data = payload.token
+        },
+        [logout.rejected]: (state, { payload }) => {
             state.loading = false
             state.error = payload
         },

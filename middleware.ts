@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
         user = await res.json()
     }
 
-    if (request.nextUrl.pathname.includes('/auth')) {
+    if (request.nextUrl.pathname.includes('/signin') || request.nextUrl.pathname.includes('/signup')) {
         if (user) {
             return NextResponse.redirect(new URL('/dashboard/wallet', request.url))
         }
@@ -38,6 +38,6 @@ export async function middleware(request: NextRequest) {
 
 
 // See "Matching Paths" below to learn more
-// export const config = {
-//     matcher: '/auth/:path*',
-// }
+export const config = {
+    matcher: ['/dashboard/:path*', '/auth/signin', '/auth/signup'],
+}
