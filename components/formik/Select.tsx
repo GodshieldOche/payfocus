@@ -1,7 +1,6 @@
 import { ErrorMessage, Field } from 'formik';
 import React from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
-import { balance } from '../../pages/dashboard/wallet';
 import { options } from '../dashboard/wallet/swap/Body';
 
 interface Props {
