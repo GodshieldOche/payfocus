@@ -9,27 +9,16 @@ export async function middleware(request: NextRequest) {
 
     const jwt = cookies.get('jwt')
 
-    let user
-
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',  Authorization: `Bearer ${jwt}`},
-    };
-
-    if (jwt) {
-        const res = await fetch(`https://api.payfocuss.com/account/info`, requestOptions )
-        user = await res.json()
-    }
 
     if (request.nextUrl.pathname.includes('/signin') || request.nextUrl.pathname.includes('/signup')) {
-        if (user) {
+        if (jwt) {
             return NextResponse.redirect(new URL('/dashboard/wallet', request.url))
         }
     }
     
 
     if(request.nextUrl.pathname.startsWith('/dashboard')) {
-        if (!user) {
+        if (!jwt) {
             return NextResponse.redirect(new URL('/auth/signin', request.url))
         }
     }

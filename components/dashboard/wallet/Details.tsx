@@ -15,32 +15,32 @@ const Details = () => {
             {/* status */}
             <div className='w-full flex justify-between'>
                 <h1 className='left'>Status</h1>
-                <h1 className='font-medium text-base'>Initiated</h1>
+                <h1 className='right'>Initiated</h1>
             </div>
             {/* Currency */}
             <div className='w-full flex justify-between'>
                 <h1 className='left'>Currency</h1>
-                <h1 className='font-medium text-base'>USD</h1>
+                <h1 className='right'>USD</h1>
             </div>
             {/* Transaction Type */}
             <div className='w-full flex justify-between'>
                 <h1 className='left'>Transaction Type</h1>
-                <h1 className='font-medium text-base'>Inflow</h1>
+                <h1 className='right'>Inflow</h1>
             </div>
             {/* Narration */}
             <div className='w-full flex justify-between'>
                 <h1 className='left'>Narration</h1>
-                <h1 className='font-medium text-base'>Nike Shoes</h1>
+                <h1 className='right'>Nike Shoes</h1>
             </div>
             {/* Channel */}
             <div className='w-full flex justify-between'>
                 <h1 className='left'>Channel</h1>
-                <h1 className='font-medium text-base'>Debit Card</h1>
+                <h1 className='right'>Debit Card</h1>
             </div>
             {/* Timestamp */}
             <div className='w-full flex justify-between'>
                 <h1 className='left'>Timestamp</h1>
-                <h1 className='font-medium text-base'>23/02/23   05:50 PM</h1>
+                <h1 className='right'>23/02/23   05:50 PM</h1>
             </div>
         </div>
       </div>
