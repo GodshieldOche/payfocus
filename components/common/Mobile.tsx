@@ -3,6 +3,8 @@ import React from 'react'
 import { Icon } from '@iconify/react';
 import notifyIcon from '../../public/notification.png'
 import { User } from '../layout/RightNav';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/features/session';
 
 
 interface Props {
@@ -10,9 +12,22 @@ interface Props {
 }
 
 const Mobile: React.FC<Props> = ({currentUser}) => {
+
+  const dispatch = useDispatch()
+
+  const handleClick = async (e: any) => {
+    dispatch(logout()).then((res: any) => {
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
+    })
+  }
+
   return (
     <div className='w-full flex justify-between items-center bg-transparent lg:hidden'>
-        <div className='relative w-[32px] h-[32px] sm:w-[50px] sm:h-[50px] border border-mainBlack/60 rounded-full'>
+        <div
+          onClick={handleClick}
+          className='relative w-[32px] h-[32px] sm:w-[50px] sm:h-[50px] border border-mainBlack/60 rounded-full'>
             <Image
               src={currentUser.logo}
               layout='fill'
