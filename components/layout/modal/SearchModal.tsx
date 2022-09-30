@@ -28,7 +28,7 @@ const SearchModal = () => {
   }
 
   return (
-    <div className='relative w-full md:w-[500px] h-[400px] bg-light dark:bg-dark rounded-t-[20px] md:rounded-[10px] flex flex-col items-center py-[24px] px-4 sm:px-[16px] space-y-5'>
+    <div className='relative w-full md:w-[500px] h-[300px] bg-light dark:bg-dark rounded-t-[20px] md:rounded-[10px] flex flex-col items-center py-[24px] px-4 sm:px-[16px] space-y-5'>
       <div className='absolute top-0 left-0 right-0 w-full flex items-center space-x-2 py-4 px-4'>
         <HiOutlineArrowLeft
           onClick={() => dispatch(setSearchModalState(false))}
