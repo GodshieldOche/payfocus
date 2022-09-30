@@ -1,7 +1,6 @@
 import React from 'react'
-import { balance } from '../../../../pages/dashboard/wallet'
+import { balance } from '../../../../typeDefs'
 import BackNav from '../../../common/BackNav'
-import { BalancesProp } from '../swap/Swap'
 import Body from './Body'
 
 export type Banks = {

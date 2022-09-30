@@ -6,10 +6,10 @@ import Button from '../../../common/Button';
 import Select from '../../../formik/Select';
 import { BalancesProp } from '../swap/Swap';
 import { options } from '../swap/Body';
-import { balance } from '../../../../pages/dashboard/wallet';
 import { getSession } from '../../../../redux/features/session';
 import { useDispatch } from 'react-redux';
 import { postFund } from '../../../../redux/features/fund';
+import { balance } from '../../../../typeDefs';
 
 
 const walletSchema = yup.object().shape({

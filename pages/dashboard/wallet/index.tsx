@@ -3,26 +3,9 @@ import Head from 'next/head'
 import Wallet from '../../../components/dashboard/wallet/Wallet'
 import axios from 'axios'
 import { User } from '../../../components/layout/RightNav'
+import { balance, transaction } from '../../../typeDefs'
 
 
-export type transaction =  {
-  id: string,
-  channel: string,
-  narration: string,
-  amount: string,
-  currency: string,
-  status: string,
-  initiated: string,
-  type: string,
-  completed: string
-}
-
-
-export type balance =  { 
-  id: string,
-   currency: string, 
-   balance: string 
-  }
 
 export interface WalletProps {
   transactions: transaction[];

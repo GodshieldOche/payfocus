@@ -2,14 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 // Define a type for the slice state
 export interface modalState {
-    modalState: boolean
+    modalState: boolean;
+    searchModalState: boolean;
     modalData: {
         title: string,
         func: () => void,
         text: string,
         buttonText: string,
         type: string
-    }
+    };
+    person: string
 }
 
 
@@ -22,9 +24,11 @@ const initialState: modalState = {
         func: () => {},
         text: '',
         buttonText: '',
-        type: ''
+        type: '',
     },
-    modalState: false
+    modalState: false,
+    searchModalState: false,
+    person: ''
 }
 
 export const modalSlice = createSlice({
@@ -40,12 +44,18 @@ export const modalSlice = createSlice({
         setModalData: (state, { payload }) => {
             state.modalData = payload
         },
+        setSearchModalState: (state, { payload }) => {
+            state.searchModalState = payload
+        },
+        setPerson: (state, { payload }) => {
+            state.person = payload
+        },
     },
 })
 
 
 // // Other code such as selectors can use the imported `RootState` type
-export const { setModalData, setModal, reset } = modalSlice.actions
+export const { setModalData, setModal, reset, setSearchModalState, setPerson } = modalSlice.actions
 
 
 export default modalSlice.reducer

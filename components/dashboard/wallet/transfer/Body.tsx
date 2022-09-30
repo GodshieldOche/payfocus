@@ -5,14 +5,17 @@ import Input from '../../../formik/Input';
 import Button from '../../../common/Button';
 import Select from '../../../formik/Select';
 import { options } from '../swap/Body';
-import { balance } from '../../../../pages/dashboard/wallet';
 import { Banks, TransferProp } from './Transfer';
+import { balance } from '../../../../typeDefs';
+import SearchInput from '../../../formik/SearchInput';
+import { useSelector } from 'react-redux';
 
 
 const transferSchema = yup.object().shape({
     type: yup.string().required('This field is required.'),
     wallet: yup.string().required('This field is required.'),
     amount: yup.string().required('This field is required.'),
+    currency: yup.string().required('Required.'),
     narration: yup.string(),
     recepient: yup.string().required('This field is required.'),
     accountNumber: yup.string().required('This field is required.'),
@@ -28,13 +31,36 @@ interface transferValues {
     recepient?: string;
     accountNumber?: string;
     bank?: string;
+    currency: string
     accountName?: string;
 }
+
+const currencies = [
+    {
+        "value": "566",
+        "name": "NGN",
+    },
+    {
+        "value": "840",
+        "name": "USD",
+    },
+    {
+        "value": "724",
+        "name": "EUR",
+    },
+    {
+        "value": "826",
+        "name": "GBP",
+    }
+]
 
 const Body: React.FC<TransferProp> = ({balances, banks}) => {
 
     const [options, setOptions] = useState<options>([])
     const [bankOptions, setBankOptions] = useState<options>([])
+    const [recepient, setRecepient] = useState('')
+
+    const { person } = useSelector((state : any) => state.modal)
 
     useEffect(() => {
         setOptions(prev => balances.map((item: balance) => {
@@ -50,16 +76,19 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                 value: item.id
             }
         }))
-    }, [balances, banks])
+
+        setRecepient(person)
+    }, [balances, banks, person])
 
     const initialValues: transferValues = {
         type: '',
         wallet: '',
         amount: '',
         narration: '',
-        recepient: '',
+        recepient: recepient,
         accountName: '',
         bank: '',
+        currency: '',
         accountNumber: ''
     }
   return (
@@ -98,17 +127,32 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                             touched={touched.wallet}
                             options={[{name:'Please Select', value:'Please Select'}, ...options]}
                          />
-            
-                        <Input
-                            label='Amount'
-                            name='amount'
-                            type="number"
-                            value={values.amount}
-                            handleChange={handleChange}
-                            placeholder='Enter Amount'
-                            errors={errors.amount}
-                            touched={touched.amount}
-                        />
+                        <div className='w-full grid grid-cols-12 gap-2'>
+                            <div className='col-span-3 sm:col-span-2'>
+                                <Select
+                                    label='Currency'
+                                    name='currency'
+                                    value={values.currency}
+                                    handleChange={handleChange}
+                                    errors={errors.currency}
+                                    touched={touched.currency}
+                                    options={currencies}
+                                />
+                            </div>
+                            <div className='col-span-9 sm:col-span-10'>
+                                <Input
+                                label='Amount'
+                                name='amount'
+                                type="number"
+                                value={values.amount}
+                                handleChange={handleChange}
+                                placeholder='Enter Amount'
+                                errors={errors.amount}
+                                touched={touched.amount}
+                            />
+                            </div>
+                        </div>
+                       
 
                         {
                             values.type === "Bank Account" 
@@ -117,12 +161,12 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                                     <Input
                                         label='Enter Account Number'
                                         name='accountNumber'
-                                        type="text"
-                                        value={values.accountName!}
+                                        type="number"
+                                        value={values.accountNumber!}
                                         handleChange={handleChange}
                                         placeholder='Account Number'
-                                        errors={errors.accountName}
-                                        touched={touched.accountName}
+                                        errors={errors.accountNumber}
+                                        touched={touched.accountNumber}
                                     /> 
                                      <Select
                                         label='Select Bank Name'
@@ -150,10 +194,10 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
 
                             values.type === 'Payfocus Account' &&
                             <>
-                                <Input
+                                <SearchInput
                                     label='Find Recepient by Email, Phone or Name'
                                     name='recepient'
-                                    type="text"
+                                    type="search"
                                     value={values.recepient!}
                                     handleChange={handleChange}
                                     placeholder='Find Recepient by Email, Phone or Name'

@@ -4,12 +4,12 @@ import * as yup from 'yup';
 import Input from '../../../formik/Input';
 import Button from '../../../common/Button';
 import Select from '../../../formik/Select';
-import { balance } from '../../../../pages/dashboard/wallet';
 import { useDispatch } from 'react-redux';
 import { postSwap } from '../../../../redux/features/swap';
 import { getSession } from '../../../../redux/features/session';
 import { reset, setModal, setModalData } from '../../../../redux/features/modal';
 import { useRouter } from 'next/router';
+import { balance } from '../../../../typeDefs';
 
 
 const fundSchema = yup.object().shape({

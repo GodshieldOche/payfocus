@@ -1,5 +1,5 @@
 import React from 'react'
-import { balance } from '../../../../pages/dashboard/wallet'
+import { balance } from '../../../../typeDefs'
 import BackNav from '../../../common/BackNav'
 import Body from './Body'
 

@@ -29,12 +29,14 @@ MyApp.getInitialProps = async (appContext: any) => {
 
     let user = null
 
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',  Authorization: `Bearer ${jwt}`},
-    };
+    
 
     if (jwt) {
+        const requestOptions = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json',  Authorization: `Bearer ${jwt}`},
+        };
+        
         const res = await fetch(`https://api.payfocuss.com/account/info`, requestOptions )
         user = await res.json()
     }

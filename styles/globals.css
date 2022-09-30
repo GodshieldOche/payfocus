@@ -55,7 +55,7 @@ input[type=number] {
 }
 
 .right {
-    @apply font-medium text-[13px] sm:text-base
+    @apply font-medium text-[13px] sm:text-base capitalize
 }
 
 
@@ -68,7 +68,7 @@ input[type=number] {
 }
 
 .scroller::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #f5f5f5;
 }
 
 .scroller::-webkit-scrollbar-thumb {

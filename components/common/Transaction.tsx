@@ -31,7 +31,7 @@ const Transaction: React.FC<Props> = ({price, date, type, id}) => {
       
       <div className='w-full flex items-center justify-between'>
         <h1 className='text-sm lg:text-base font-semibold text-black dark:text-light tracking-wider '>{price}</h1>
-        <h3 className='text-xs lg:text-sm font-medium '>23/02/23</h3>
+        <h3 className='text-xs lg:text-sm font-medium '>{date.substring(0, 10)}</h3>
       </div>
     </div>
   )

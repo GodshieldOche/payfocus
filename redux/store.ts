@@ -6,6 +6,7 @@ import sessionReducer from "./features/session"
 import registerReducer from "./features/register"
 import swapReducer from "./features/swap"
 import fundReducer from "./features/fund"
+import transferReducer from "./features/transfer"
 
 
 
@@ -17,6 +18,7 @@ const makeStore = () => configureStore({
         session: sessionReducer,
         swap: swapReducer,
         fund: fundReducer,
+        transfer: transferReducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
