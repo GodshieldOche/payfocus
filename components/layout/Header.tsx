@@ -1,5 +1,5 @@
 import React from 'react'
-import { balance } from '../../pages/dashboard/wallet'
+import { balance } from '../../typeDefs'
 import Box from '../common/Box'
 import Card from '../common/Card'
 import Mobile from '../common/Mobile'
