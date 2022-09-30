@@ -1,24 +1,28 @@
 import Image from 'next/image'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { setPerson, setSearchModalState } from '../../redux/features/modal'
 import { Person } from '../../typeDefs'
 
-const User : React.FC<Person> = ({Id, Name, Picture}) => {
+interface Props extends Person {
+  setId: any
+  handleChange: any
+  setUsers: any
+}
 
-    const dispatch = useDispatch()
+const User : React.FC<Props> = ({Id, Name, Picture, handleChange, setId, setUsers}) => {
 
   return (
     <div 
         onClick={() => {
-            dispatch(setPerson(Id))
-            dispatch(setSearchModalState(false))
+           handleChange(Name)
+           setId(Id)
+           setUsers([])
         }}
-        className='w-full flex items-center  space-x-5 '>
+        className='w-full flex items-center  space-x-5 cursor-pointer  '>
         <div
-          className='relative w-[32px] h-[32px] sm:w-[50px] sm:h-[50px] rounded-full'>
+          className='relative w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] rounded-full '>
             <Image
-              src={Picture}
+              src={Picture || 'https://res.cloudinary.com/dk6uhtgvo/image/upload/v1660075992/cld-sample-2.jpg'}
               layout='fill'
               objectFit='cover'
               className='w-full h-full rounded-full'

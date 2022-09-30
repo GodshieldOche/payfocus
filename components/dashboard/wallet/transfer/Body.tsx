@@ -6,9 +6,13 @@ import Button from '../../../common/Button';
 import Select from '../../../formik/Select';
 import { options } from '../swap/Body';
 import { Banks, TransferProp } from './Transfer';
-import { balance } from '../../../../typeDefs';
+import { balance, pfTransfer } from '../../../../typeDefs';
 import SearchInput from '../../../formik/SearchInput';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getSession } from '../../../../redux/features/session';
+import { postTransfer } from '../../../../redux/features/transfer';
+import { setModal, setModalData } from '../../../../redux/features/modal';
+import { useRouter } from 'next/router';
 
 
 const transferSchema = yup.object().shape({
@@ -17,10 +21,9 @@ const transferSchema = yup.object().shape({
     amount: yup.string().required('This field is required.'),
     currency: yup.string().required('Required.'),
     narration: yup.string(),
-    recepient: yup.string().required('This field is required.'),
-    accountNumber: yup.string().required('This field is required.'),
-    bank: yup.string().required('This field is required.'),
-    accountName: yup.string().required('This field is required.'),
+    accountNumber: yup.string(),
+    bank: yup.string(),
+    accountName: yup.string(),
 })
 
 interface transferValues {
@@ -28,7 +31,6 @@ interface transferValues {
     wallet: string;
     amount: string;
     narration?: string;
-    recepient?: string;
     accountNumber?: string;
     bank?: string;
     currency: string
@@ -59,8 +61,12 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
     const [options, setOptions] = useState<options>([])
     const [bankOptions, setBankOptions] = useState<options>([])
     const [recepient, setRecepient] = useState('')
+    const [recepientId, setRecepientId] = useState('')
 
-    const { person } = useSelector((state : any) => state.modal)
+
+    const dispatch = useDispatch()
+    const router = useRouter()
+
 
     useEffect(() => {
         setOptions(prev => balances.map((item: balance) => {
@@ -77,32 +83,87 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
             }
         }))
 
-        setRecepient(person)
-    }, [balances, banks, person])
+    }, [balances, banks])
 
     const initialValues: transferValues = {
         type: '',
         wallet: '',
         amount: '',
         narration: '',
-        recepient: recepient,
         accountName: '',
         bank: '',
         currency: '',
         accountNumber: ''
     }
+
+    
+    const error = {
+        title: 'Transfer Unsuccessful',
+        type: 'error',
+        text: 'Something went wrong',
+        buttonText: 'OK',
+        func: () => {dispatch(setModal(false))}
+    }
+
+
+    const success = {
+        title: 'Transfer Successful',
+        type: 'success',
+        text: 'Transfer successful, the recepient has been credited accordingly',
+        buttonText: 'Proceed',
+        func: () => {
+            router.push('/dashboard/wallet/transfer')
+            dispatch(setModal(false))
+        }
+    }
+
+
+    const handlePfTransfer = (body: pfTransfer, setSubmitting: any, resetForm: any) => {
+        dispatch(getSession()).then((res:any) => {
+            dispatch(postTransfer({body, token: res?.payload?.token}))
+            .then((res: any) => {
+                if(res.payload?.status === 'failed' || res.error) {
+                    dispatch(setModalData({
+                        ...error,
+                        text: res?.payload?.message || 'Something went wrong'
+                    }))
+                    dispatch(setModal(true))
+                    setSubmitting(false)
+                    return
+                }
+                
+                dispatch(setModalData(success))
+                dispatch(setModal(true))
+                resetForm()
+                setSubmitting(false)
+                console.log(res)
+            })
+        })
+    }
+
+
   return (
     <div className='px-4 sm:px-[43px] lg:px-6 !mt-8 sm:!mt-14'>
        <Formik
             initialValues={initialValues}
             validationSchema={transferSchema}
             onSubmit={(data, {resetForm, setSubmitting}) => {
-                
+                const pfTransferBody: pfTransfer = {
+                    amountDst: Number(data.amount),
+                    channel: data.type,
+                    dst: data.currency,
+                    inData: recepientId,
+                    src: data.wallet,
+                    narration: data.narration
+                }
+
+                console.log(pfTransferBody)
+                handlePfTransfer(pfTransferBody, setSubmitting, resetForm)
             }}
         >
             {
                 ({ errors, touched, handleSubmit, values, handleChange, isSubmitting }) => (
-                    <Form className="w-full space-y-7 pb-10">
+                    <Form autoComplete='off' className="w-full space-y-7 pb-10">
 
                         <Select
                             label='Select Transfer Type'
@@ -198,11 +259,10 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                                     label='Find Recepient by Email, Phone or Name'
                                     name='recepient'
                                     type="search"
-                                    value={values.recepient!}
-                                    handleChange={handleChange}
+                                    value={recepient}
+                                    handleChange={setRecepient}
+                                    setId={setRecepientId}
                                     placeholder='Find Recepient by Email, Phone or Name'
-                                    errors={errors.recepient}
-                                    touched={touched.recepient}
                                 /> 
                             </>
                         }

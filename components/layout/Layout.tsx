@@ -4,7 +4,6 @@ import MainLayout from './MainLayout'
 import { useSelector } from 'react-redux'
 import Modal from './modal/Modal'
 import Footer from './Footer'
-import SearchModal from './modal/SearchModal'
 
 const Layout : React.FC<any> = ({children, currentUser}) => {
 
@@ -29,9 +28,6 @@ const Layout : React.FC<any> = ({children, currentUser}) => {
       {
         modalState && 
         <Modal />
-      }
-      {
-        searchModalState && <Modal />
       }
     </div>
   )

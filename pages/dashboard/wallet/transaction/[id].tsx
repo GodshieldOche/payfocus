@@ -38,8 +38,6 @@ export async function getServerSideProps({req, res, params}: any) {
   transactions = data.data 
 
   transaction = transactions.find((transaction : transaction) => transaction.id === id)
-
-  console.log(transaction && transaction)
   // Pass data to the page via props
   return { 
     props: { 

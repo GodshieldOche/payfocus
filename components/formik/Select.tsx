@@ -32,7 +32,7 @@ const Select: React.FC<Props> = ({ label, name, errors, touched, value, options,
                     }
                 </Field>
                 <div className='absolute h-full top-0 bottom-0 my-auto right-3 flex flex-col justify-center'>
-                    <TiArrowSortedDown className='text-mainBlack !font-medium !text-lg' />
+                    <TiArrowSortedDown className='text-mainBlack !font-medium !text-base' />
                 </div>
             </div>
          
