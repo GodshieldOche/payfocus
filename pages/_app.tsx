@@ -5,15 +5,19 @@ import { ThemeProvider } from 'next-themes'
 import Layout from '../components/layout/Layout'
 import App from 'next/app'
 import NextNProgress from 'nextjs-progressbar'
+import { Provider } from 'react-redux'
 
-function MyApp({ Component, pageProps }: any) {
+function MyApp({ Component, ...rest }: any) {
+  const {store, props} = wrapper.useWrappedStore(rest);
   return ( 
-    <ThemeProvider attribute='class'>
-       <NextNProgress color='#f59e0b' />
-       <Layout currentUser={pageProps.currentUser}>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider attribute='class'>
+        <NextNProgress color='#f59e0b' />
+        <Layout currentUser={props.pageProps.currentUser}>
+          <Component {...props.pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </Provider>
   )
 }
 
@@ -43,4 +47,4 @@ MyApp.getInitialProps = async (appContext: any) => {
      }
   }
 
-export default wrapper.withRedux(MyApp)
+export default MyApp
