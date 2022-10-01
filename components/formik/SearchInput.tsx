@@ -21,6 +21,7 @@ const SearchInput: React.FC<Props> = ({ label, name, placeholder, type, value, h
   const [users, setUsers] = useState<Person[]>([])
   const dispatch = useDispatch()
   const [error, setError] = useState(false)
+  const [active, setActive] = useState<boolean>(false)
 
   const handleLookUp = async (e: any) => {
     setError(false)
@@ -42,16 +43,20 @@ const SearchInput: React.FC<Props> = ({ label, name, placeholder, type, value, h
 
   return (
     <div className='space-y-2' >
-    <label htmlFor={name} className=" "><h3>{label}</h3></label>
+    <label htmlFor={name} className=" ">
+      <h3 className={`${active ? "text-primaryOne dark:text-gray-300" : "text-mainBlack"}`}>{label}</h3>
+    </label>
     <input 
       type={type}
       placeholder={placeholder} 
-      className='input'
+      className={`input ${active ? "!text-primaryOne dark:!text-gray-300" : "text-mainBlack"} `}
       value={value}
       onChange={handleLookUp}
       autoComplete="off"
       required
+      onFocus={() => setActive(true)}
       onBlur={(e) => {
+        setActive(false)
         if(!value) {
           setError(true)
         } else {

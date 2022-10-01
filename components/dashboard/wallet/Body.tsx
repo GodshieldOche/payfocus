@@ -13,6 +13,8 @@ const Body: React.FC<Props> = ({ transactions }) => {
   const [inflow, setInflow] = useState<any[]>([])
   const [outflow, setOutflow] = useState<any[]>([])
 
+  transactions.sort((a, b) => Number(new Date(b.initiated)) - Number(new Date(a.initiated)))
+
   useEffect(() => {
     setInflow(prev => {
       return transactions?.filter(item => item.type === 'inflow')

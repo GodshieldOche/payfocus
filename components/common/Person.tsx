@@ -29,7 +29,7 @@ const User : React.FC<Props> = ({Id, Name, Picture, handleChange, setId, setUser
               objectPosition={0}
             />
         </div>
-        <h3>{Name}</h3>
+        <h3 className='text-primaryOne dark:text-gray-300'>{Name}</h3>
     </div>
   )
 }

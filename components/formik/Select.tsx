@@ -1,5 +1,5 @@
 import { ErrorMessage, Field } from 'formik';
-import React from 'react'
+import React, { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti'
 import { options } from '../dashboard/wallet/swap/Body';
 
@@ -14,14 +14,24 @@ interface Props {
 }
 
 const Select: React.FC<Props> = ({ label, name, errors, touched, value, options, handleChange }) => {
+
+    const [active, setActive] = useState<boolean>(false)
+
   return (
       <div className='space-y-2'>
-            <label htmlFor={name} className=" "><h3>{label}</h3></label>
+            <label htmlFor={name} className=" ">
+                <h3 className={`${active ? "text-primaryOne dark:text-gray-300" : "text-mainBlack"}`}>{label}</h3>
+            </label>
             <div className='w-full h-full relative'>
-                <Field id={name} name={name} className={`input  w-full `}
-                as="select"
-                value={value}
-                onChange={handleChange}
+                <Field 
+                    id={name} 
+                    name={name} 
+                    className={`input  w-full ${active ? "!text-primaryOne dark:!text-gray-300" : "text-mainBlack"} `}
+                    as="select"
+                    value={value}
+                    onChange={handleChange}
+                    onFocus={() => setActive(true)}
+                    onBlur={() => setActive(false)}
                  >
                     {
                         options.map((option, index) => (

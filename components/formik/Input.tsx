@@ -17,6 +17,7 @@ interface Props {
 const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touched, value, handleChange}) => {
 
     const [inputType, setInputType] = useState<string>(type)
+    const [active, setActive] = useState<boolean>(false)
 
     useEffect(() => {
         setInputType(type)
@@ -24,13 +25,17 @@ const Input: React.FC<Props> = ({ label, name, placeholder, errors, type, touche
 
   return (
     <div className='space-y-2' >
-          <label htmlFor={name} className=" "><h3>{label}</h3></label>
+          <label htmlFor={name}>
+            <h3 className={`${active ? "text-primaryOne dark:text-gray-300" : "text-mainBlack"}`}>{label}</h3>
+          </label>
           <div className='w-full h-full relative'>
             <Field id={name} name={name} type={inputType} value={value}
-              className={`input `}
+              className={`input ${active ? "!text-primaryOne dark:!text-gray-300" : "text-mainBlack"} `}
               onChange={handleChange}
               autoComplete="off"
               placeholder={placeholder} 
+              onFocus={() => setActive(true)}
+              onBlur={() => setActive(false)}
               />
             {
                 name === "password" &&
