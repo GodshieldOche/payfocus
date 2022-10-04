@@ -13,6 +13,7 @@ import { getSession } from '../../../../redux/features/session';
 import { postTransfer } from '../../../../redux/features/transfer';
 import { setModal, setModalData } from '../../../../redux/features/modal';
 import { useRouter } from 'next/router';
+import SelectInput from '../../../formik/SelectInput';
 
 
 const transferSchema = yup.object().shape({
@@ -62,6 +63,9 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
     const [bankOptions, setBankOptions] = useState<options>([])
     const [recepient, setRecepient] = useState('')
     const [recepientId, setRecepientId] = useState('')
+    const [type, setType] = useState('Please Select')
+    const [wallet, setWallet] = useState('Please Select')
+    const [currency, setCurrency] = useState('NGN')
 
 
     const dispatch = useDispatch()
@@ -150,10 +154,10 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
             onSubmit={(data, {resetForm, setSubmitting}) => {
                 const pfTransferBody: pfTransfer = {
                     amountDst: Number(data.amount),
-                    channel: data.type,
+                    channel: type,
                     dst: data.currency,
                     inData: recepientId,
-                    src: data.wallet,
+                    src: wallet,
                     narration: data.narration
                 }
 
@@ -165,39 +169,28 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                 ({ errors, touched, handleSubmit, values, handleChange, isSubmitting }) => (
                     <Form autoComplete='off' className="w-full space-y-7 pb-10">
 
-                        <Select
-                            label='Select Transfer Type'
-                            name='type'
-                            value={values.type}
-                            handleChange={handleChange}
-                            errors={errors.type}
-                            touched={touched.type}
-                            options={[
-                                {name:'Please Select', value:'Please Select'}, 
-                                {name:'Payfocus Account', value: 'Payfocus Account'},
-                                {name:'Bank Account', value: 'Bank Account'}
-                                ]}
-                         />
 
-                        <Select
-                            label='Select Wallet to debit'
-                            name='wallet'
-                            value={values.wallet}
-                            handleChange={handleChange}
-                            errors={errors.wallet}
-                            touched={touched.wallet}
+                        <SelectInput 
+                            label='Select Transfer Type' 
+                            options={[{name:'Please Select', value:'Please Select'}, {name:'Payfocus Account', value: 'Payfocus Account'},{name:'Bank Account', value: 'Bank Account'}]} 
+                            value={type}
+                            handleChange={setType}
+                        />
+
+                         <SelectInput 
+                            label='Select Wallet to debit' 
                             options={[{name:'Please Select', value:'Please Select'}, ...options]}
-                         />
+                            value={wallet}
+                            handleChange={setWallet}
+                        />
+
                         <div className='w-full grid grid-cols-12 gap-2'>
                             <div className='col-span-3 sm:col-span-2'>
-                                <Select
-                                    label='Currency'
-                                    name='currency'
-                                    value={values.currency}
-                                    handleChange={handleChange}
-                                    errors={errors.currency}
-                                    touched={touched.currency}
+                                <SelectInput 
+                                    label='Currency' 
                                     options={currencies}
+                                    value={currency}
+                                    handleChange={setCurrency}
                                 />
                             </div>
                             <div className='col-span-9 sm:col-span-10'>
@@ -216,7 +209,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                        
 
                         {
-                            values.type === "Bank Account" 
+                            type === "Bank Account" 
                             &&
                                 <>
                                     <Input
@@ -253,7 +246,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                         }
                         {
 
-                            values.type === 'Payfocus Account' &&
+                            type === 'Payfocus Account' &&
                             <>
                                 <SearchInput
                                     label='Find Recepient by Email, Phone or Name'
