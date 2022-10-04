@@ -1,15 +1,28 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface Props {
-    active: boolean;
     text: string;
     icon: string;
 }
 
 
-const IconLink: React.FC<Props> = ({active, text, icon }) => {
+const IconLink: React.FC<Props> = ({text, icon }) => {
+
+  const [active, setActive] = useState<boolean>(false)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if(router.pathname.includes(text)) {
+      setActive(true)
+    } else {
+      setActive(false)
+    }
+  },[router.pathname])
+
   return (
     <Link href={`/dashboard/${text}`}>
       <a>

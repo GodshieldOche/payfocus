@@ -57,7 +57,7 @@ export type bankTransfer = {
   amountDst : number,
   narration?: string,
   channel: string,
-  inData: {bankId: string, actNo: number},
+  inData: {bankId: string, actNo: string},
   src: string,
   dst: string
 }
@@ -66,4 +66,15 @@ export type Person = {
   Id: string,
   Name : string,
   Picture: string,
+}
+
+export type Payment = {
+  Id: string,
+  Title: string,
+  Amount: string,
+  Currency: string,
+  Status: string,
+  Created: string,
+  Link: string,
+  Redirect: string
 }

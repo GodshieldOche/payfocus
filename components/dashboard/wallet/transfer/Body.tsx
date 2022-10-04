@@ -3,10 +3,9 @@ import { Formik, Form} from 'formik';
 import * as yup from 'yup';
 import Input from '../../../formik/Input';
 import Button from '../../../common/Button';
-import Select from '../../../formik/Select';
 import { options } from '../swap/Body';
 import { Banks, TransferProp } from './Transfer';
-import { balance, pfTransfer } from '../../../../typeDefs';
+import { balance, pfTransfer, bankTransfer } from '../../../../typeDefs';
 import SearchInput from '../../../formik/SearchInput';
 import { useDispatch } from 'react-redux';
 import { getSession } from '../../../../redux/features/session';
@@ -14,27 +13,20 @@ import { postTransfer } from '../../../../redux/features/transfer';
 import { setModal, setModalData } from '../../../../redux/features/modal';
 import { useRouter } from 'next/router';
 import SelectInput from '../../../formik/SelectInput';
+import { channel } from 'diagnostics_channel';
 
 
 const transferSchema = yup.object().shape({
-    type: yup.string().required('This field is required.'),
-    wallet: yup.string().required('This field is required.'),
-    amount: yup.string().required('This field is required.'),
-    currency: yup.string().required('Required.'),
+    amount: yup.string(),
+    currency: yup.string(),
     narration: yup.string(),
-    accountNumber: yup.string(),
-    bank: yup.string(),
     accountName: yup.string(),
 })
 
 interface transferValues {
-    type: string;
-    wallet: string;
     amount: string;
     narration?: string;
     accountNumber?: string;
-    bank?: string;
-    currency: string
     accountName?: string;
 }
 
@@ -66,6 +58,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
     const [type, setType] = useState('Please Select')
     const [wallet, setWallet] = useState('Please Select')
     const [currency, setCurrency] = useState('NGN')
+    const [bank, setBank] = useState('Bank')
 
 
     const dispatch = useDispatch()
@@ -90,13 +83,9 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
     }, [balances, banks])
 
     const initialValues: transferValues = {
-        type: '',
-        wallet: '',
         amount: '',
         narration: '',
         accountName: '',
-        bank: '',
-        currency: '',
         accountNumber: ''
     }
 
@@ -122,11 +111,12 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
     }
 
 
-    const handlePfTransfer = (body: pfTransfer, setSubmitting: any, resetForm: any) => {
+    const handlePfTransfer = (body: pfTransfer | bankTransfer, setSubmitting: any, resetForm: any) => {
         dispatch(getSession()).then((res:any) => {
             dispatch(postTransfer({body, token: res?.payload?.token}))
             .then((res: any) => {
                 if(res.payload?.status === 'failed' || res.error) {
+                    console.log(res)
                     dispatch(setModalData({
                         ...error,
                         text: res?.payload?.message || 'Something went wrong'
@@ -155,14 +145,30 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                 const pfTransferBody: pfTransfer = {
                     amountDst: Number(data.amount),
                     channel: type,
-                    dst: data.currency,
+                    dst: currency,
                     inData: recepientId,
                     src: wallet,
                     narration: data.narration
                 }
+                const bankTransfer: bankTransfer = {
+                    amountDst: Number(data.amount),
+                    channel: 'Bank',
+                    dst: "566",
+                    inData: {bankId: bank, actNo: data.accountNumber!},
+                    src: wallet,
+                    narration: data.narration
+                }
 
-                console.log(pfTransferBody)
-                handlePfTransfer(pfTransferBody, setSubmitting, resetForm)
+                if (type === 'Payfocus Account') {
+                    handlePfTransfer(pfTransferBody, setSubmitting, resetForm)
+                }   
+
+                if (type === 'Bank Account') {
+                    handlePfTransfer(bankTransfer, setSubmitting, resetForm)
+                }   
+
+                console.log(pfTransferBody, bankTransfer)
+                
             }}
         >
             {
@@ -215,22 +221,19 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                                     <Input
                                         label='Enter Account Number'
                                         name='accountNumber'
-                                        type="number"
+                                        type="text"
                                         value={values.accountNumber!}
                                         handleChange={handleChange}
                                         placeholder='Account Number'
                                         errors={errors.accountNumber}
                                         touched={touched.accountNumber}
                                     /> 
-                                     <Select
-                                        label='Select Bank Name'
-                                        name='bank'
-                                        value={values.bank!}
-                                        handleChange={handleChange}
-                                        errors={errors.bank}
-                                        touched={touched.bank}
+                                    <SelectInput 
+                                        label='Select Bank Name' 
                                         options={[{ name: 'Bank', value: '0'}, ...bankOptions]}
-                                    />   
+                                        value={bank}
+                                        handleChange={setBank}
+                                    />
                                     <Input
                                         label='Account Holder Name'
                                         name='accountName'
