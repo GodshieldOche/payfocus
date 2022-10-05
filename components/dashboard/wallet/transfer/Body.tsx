@@ -180,7 +180,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
 
                         <SelectInput 
                             label='Select Transfer Type' 
-                            options={[{name:'Please Select', value:'Please Select'}, {name:'Payfocus Account', value: 'Payfocus Account'},{name:'Bank Account', value: 'Bank Account'}]} 
+                            options={[{name:'Payfocus Account', value: 'Payfocus Account'},{name:'Bank Account', value: 'Bank Account'}]} 
                             value={type}
                             handleChange={setType}
                             setValue={setTypeId}
@@ -188,7 +188,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
 
                          <SelectInput 
                             label='Select Wallet to debit' 
-                            options={[{name:'Please Select', value:'Please Select'}, ...options]}
+                            options={[...options]}
                             value={wallet}
                             handleChange={setWallet}
                             setValue={setWalletId}
@@ -235,7 +235,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                                     /> 
                                     <SelectInput 
                                         label='Select Bank Name' 
-                                        options={[{ name: 'Bank', value: '0'}, ...bankOptions]}
+                                        options={[...bankOptions]}
                                         value={bank}
                                         handleChange={setBank}
                                         setValue={setBankId}

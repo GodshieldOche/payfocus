@@ -10,17 +10,14 @@ import { getSession } from '../../../../redux/features/session';
 import { reset, setModal, setModalData } from '../../../../redux/features/modal';
 import { useRouter } from 'next/router';
 import { balance } from '../../../../typeDefs';
+import SelectInput from '../../../formik/SelectInput';
 
 
 const fundSchema = yup.object().shape({
-    source: yup.string().required('This field is required.'),
-    target: yup.string().required('This field is required.'),
-    amount: yup.string().required('This field is required.'),
+    amount: yup.string(),
 })
 
 interface fundValues {
-    source: string;
-    target: string;
     amount: string;
 }
 
@@ -33,6 +30,10 @@ export type options = {name: string, value: string}[]
 const Body: React.FC <Props> = ({balances}) => {
 
     const [options, setOptions] = useState<options>([])
+    const [wallet, setWallet] = useState('From')
+    const [walletId, setWalletId] = useState('')
+    const [target, setTarget] = useState('To')
+    const [targetId, setTargetId] = useState('')
 
     useEffect(() => {
         setOptions(prev => balances.map((item: balance) => {
@@ -44,8 +45,6 @@ const Body: React.FC <Props> = ({balances}) => {
     }, [balances])
 
     const initialValues: fundValues = {
-        source: '',
-        target: '',
         amount: ''
     }
 
@@ -81,8 +80,8 @@ const Body: React.FC <Props> = ({balances}) => {
             validationSchema={fundSchema}
             onSubmit={(data, {resetForm, setSubmitting}) => {
                 const body = {
-                    src: data.source,
-                    dst: data.target,
+                    src: walletId,
+                    dst: targetId,
                     amountDst: data.amount
                 }
 
@@ -112,25 +111,21 @@ const Body: React.FC <Props> = ({balances}) => {
                 ({ errors, touched, handleSubmit, values, handleChange, isSubmitting }) => (
                     <Form className="w-full space-y-7 pb-10">
 
-                        <Select
-                            label='Select Source Wallet'
-                            name='source'
-                            value={values.source}
-                            handleChange={handleChange}
-                            errors={errors.source}
-                            touched={touched.source}
-                            options={[{value: '1', name: 'From'}, ...options]}
-                         />
+                        <SelectInput 
+                            label='Select Source Wallet' 
+                            options={[...options]}
+                            value={wallet}
+                            handleChange={setWallet}
+                            setValue={setWalletId}
+                        />
 
-                        <Select
-                            label='Select Target wallet'
-                            name='target'
-                            value={values.target}
-                            handleChange={handleChange}
-                            errors={errors.target}
-                            touched={touched.target}
-                            options={[{value: '1', name: 'To'}, ...options]}
-                         />
+                        <SelectInput 
+                            label='Select Target Wallet' 
+                            options={[...options]}
+                            value={target}
+                            handleChange={setTarget}
+                            setValue={setTargetId}
+                        />
             
                         <Input
                             label='Amount'

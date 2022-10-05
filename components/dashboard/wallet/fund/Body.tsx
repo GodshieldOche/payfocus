@@ -10,21 +10,22 @@ import { getSession } from '../../../../redux/features/session';
 import { useDispatch } from 'react-redux';
 import { postFund } from '../../../../redux/features/fund';
 import { balance } from '../../../../typeDefs';
+import SelectInput from '../../../formik/SelectInput';
 
 
 const walletSchema = yup.object().shape({
-    wallet: yup.string().required('This field is required.'),
-    amount: yup.string().required('This field is required.'),
+    amount: yup.string(),
 })
 
 interface walletValues {
-    wallet: string;
     amount: string;
 }
 
 const Body: React.FC<BalancesProp> = ({balances}) => {
 
     const [options, setOptions] = useState<options>([])
+    const [wallet, setWallet] = useState('Select Wallet')
+    const [walletId, setWalletId] = useState('')
 
     const dispatch = useDispatch()
 
@@ -38,7 +39,6 @@ const Body: React.FC<BalancesProp> = ({balances}) => {
     }, [balances])
 
     const initialValues: walletValues = {
-        wallet: '',
         amount: ''
     }
 
@@ -49,7 +49,7 @@ const Body: React.FC<BalancesProp> = ({balances}) => {
             validationSchema={walletSchema}
             onSubmit={(data, {resetForm, setSubmitting}) => {
                 const body = {
-                    src: data.wallet,
+                    src: walletId,
                     amount: data.amount
                 }
 
@@ -81,15 +81,13 @@ const Body: React.FC<BalancesProp> = ({balances}) => {
                 ({ errors, touched, handleSubmit, values, handleChange, isSubmitting }) => (
                     <Form className="w-full space-y-7 pb-10">
 
-                        <Select
-                            label='Select Wallet to fund'
-                            name='wallet'
-                            value={values.wallet}
-                            handleChange={handleChange}
-                            errors={errors.wallet}
-                            touched={touched.wallet}
-                            options={[{value: '1', name: 'Select Wallet'}, ...options]}
-                         />
+                        <SelectInput 
+                            label='Select Wallet to debit' 
+                            options={[...options]}
+                            value={wallet}
+                            handleChange={setWallet}
+                            setValue={setWalletId}
+                        />
             
                         <Input
                             label='Amount'

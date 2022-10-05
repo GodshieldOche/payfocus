@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { TiArrowSortedDown } from 'react-icons/ti';
 import { options } from '../dashboard/wallet/swap/Body';
+import Modal from '../layout/modal/Modal';
+import SelectModal from '../layout/modal/SelectModal';
 
 
 interface Props {
@@ -36,21 +38,32 @@ const SelectInput: React.FC <Props> = ({ label, value, handleChange, options, se
         </div>
         {
             active &&
-            <div className='absolute  !z-50 w-full max-h-52 scroller scrollerMain overflow-y-auto flex flex-col space-y-1 py-1 rounded-md bg-secondaryOne dark:bg-darkOne'>
-                {
-                    options.map(option => (
-                        <h3  
-                        onClick={() => {
-                            handleChange(option.name)
-                            setValue(option.value)
-                            setActive(false)
-                        }}
-                        key={option.value}
-                        className='w-full p-2 hover:bg-mainBlack/20 text-primaryOne dark:text-gray-300 cursor-pointer'>{option.name}</h3>
-                    ))
-                }
-            </div>
+            <>
+                <div className='absolute hidden sm:flex !z-50 w-full max-h-52 scroller scrollerMain overflow-y-auto  flex-col space-y-1 py-1 rounded-md bg-secondaryOne dark:bg-darkOne'>
+                    {
+                        options.map(option => (
+                            <h3  
+                            onClick={() => {
+                                handleChange(option.name)
+                                setValue(option.value)
+                                setActive(false)
+                            }}
+                            key={option.value}
+                            className='w-full p-2 hover:bg-mainBlack/20 text-primaryOne dark:text-gray-300 cursor-pointer'>{option.name}</h3>
+                        ))
+                    }
+                </div>
+                <SelectModal 
+                    options={options} 
+                    handleChange={handleChange}
+                    setValue={setValue}
+                    setActive={setActive} 
+                />
+            </>
+            
         }
+
+        
     </div>
   )
 }

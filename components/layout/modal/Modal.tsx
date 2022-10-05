@@ -6,15 +6,6 @@ import Desktop from './Desktop'
 const Modal = () => {
 
     const { modalData } = useSelector((state : any) => state.modal)
-    // const dispatch = useDispatch()
-
-    // const close = () => {
-    //   dispatch(setModal(false))
-    // }
-
-    // const object = {
-    //   func: () => { dispatch(setModal(false)) }
-    // }
 
   return (
     <div className='fixed top-0 right-0 left-0 bottom-0 z-50 bg-black/60 w-full h-full overflow-hidden flex items-end md:items-center  justify-center'>

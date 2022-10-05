@@ -103,7 +103,7 @@ const PayForm: React.FC<Props> = ({type, payment}) => {
 
                         <SelectInput 
                             label='Select Transfer Type' 
-                            options={[{name:'Please Select', value:'Please Select'}, ...currencies]} 
+                            options={[...currencies]} 
                             value={currency}
                             handleChange={setCurrency}
                             setValue={setCurrencyId}

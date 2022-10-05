@@ -9,7 +9,7 @@ interface Props {
 
 const Body: React.FC<Props> = ({payments}) => {
   return (
-    <div className='px-4 sm:px-[43px] lg:px-6 !mt-8 sm:!mt-8'>
+    <div className='px-4 sm:px-[43px] lg:px-6 font-Poppins !mt-8 sm:!mt-8'>
         {
             payments.length >= 1 
             ? 
