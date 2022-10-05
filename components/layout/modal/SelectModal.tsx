@@ -10,8 +10,12 @@ interface Props {
 
 const SelectModal: React.FC<Props> = ({options, handleChange, setValue, setActive}) => {
   return (
-    <div className='flex sm:hidden fixed top-0 right-0 left-0 bottom-0 z-50 bg-black/60 w-full h-full overflow-hidden  items-end justify-center'>
-      <div className='relative w-full h-[267px] bg-light dark:bg-dark rounded-t-[20px] flex flex-col items-center py-2 px-[16px] space-y-5 '>
+    <div 
+        onClick={() => setActive(false)}
+        className='flex sm:hidden fixed top-0 right-0 left-0 bottom-0 z-50 bg-black/60 w-full h-full overflow-hidden  items-end justify-center'>
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        className='relative w-full h-[267px] bg-light dark:bg-dark rounded-t-[20px] flex flex-col items-center py-2 px-[16px] space-y-5 '>
         <div className='absolute top-0 right-0 left-0 py-3 rounded-t-[20px]  flex w-full items-center justify-center bg-dark'>
             <div className='h-[2px] rounded-md w-24 bg-mainBlack'></div>
         </div>
@@ -19,7 +23,7 @@ const SelectModal: React.FC<Props> = ({options, handleChange, setValue, setActiv
             {
                 options.map(option => (
                     <h3  
-                    onClick={() => {
+                    onClick={(e) => {
                         handleChange(option.name)
                         setValue(option.value)
                         setActive(false)

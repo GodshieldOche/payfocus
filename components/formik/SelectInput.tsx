@@ -19,7 +19,7 @@ const SelectInput: React.FC <Props> = ({ label, value, handleChange, options, se
     const [active, setActive] = useState<boolean>(false)
 
   return (
-    <div 
+    <div
         className='relative space-y-2' >
         <label htmlFor=''>
                 <h3 className={`${active ? "text-primaryOne dark:text-gray-300" : "text-mainBlack"}`}>{label}</h3>
