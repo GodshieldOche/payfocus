@@ -34,9 +34,10 @@ const PaymentNav: React.FC<Props> = ({text, icon1, action, showIcon }) => {
         <HiOutlineArrowLeft 
          onClick={()=> router.back()}
         className='text-lg text-light xl:!text-xl cursor-pointer' />
-        <Icon icon={icon1!} 
-         onClick={()=> router.back()}
-        className='text-lg text-light xl:!text-xl cursor-pointer' />
+        <Icon  
+          icon={icon1!} 
+          onClick={action}
+          className='text-lg text-light xl:!text-xl cursor-pointer' />
       </div>
     </div>
   )
