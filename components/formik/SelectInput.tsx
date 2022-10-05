@@ -8,10 +8,11 @@ interface Props {
     value: string;
     handleChange: any;
     options: options;
+    setValue: any;
 }
 
 
-const SelectInput: React.FC <Props> = ({ label, value, handleChange, options}) => {
+const SelectInput: React.FC <Props> = ({ label, value, handleChange, options, setValue}) => {
 
     const [active, setActive] = useState<boolean>(false)
 
@@ -40,7 +41,8 @@ const SelectInput: React.FC <Props> = ({ label, value, handleChange, options}) =
                     options.map(option => (
                         <h3  
                         onClick={() => {
-                            handleChange(option.value)
+                            handleChange(option.name)
+                            setValue(option.value)
                             setActive(false)
                         }}
                         key={option.value}

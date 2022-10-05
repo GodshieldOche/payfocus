@@ -1,28 +1,32 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import Payments from '../../../components/dashboard/payments/Payments'
+import { Payment } from '../../../../typeDefs'
+import PayForm from '../../../../components/dashboard/payments/Form'
 
-const PaymentPage: NextPage<any> = ( props ) => {
+const EditPaymentPage: NextPage<any> = ( props ) => {
 
 
   return (
     <div>
         <Head>
-            <title>Pay Focus | Payments</title>
+            <title>Pay Focus | Edit Payment</title>
             <meta name="description" content="PayFocus by Uniccon group" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Payments payments={props.payments} />
+        <PayForm type='Edit Payment' payment={props.payment} />
     </div>
   )
 }
 
-export async function getServerSideProps({req, res}: any) {
-  
+export async function getServerSideProps({req, res, params}: any) {
+
+  const id = params.id
+
   const { jwt } = req.cookies
   
-  let payments: any
+  let payments: Payment[]
+  let payment: Payment
 
   const dataOne = await axios.get('https://api.payfocuss.com/payments', {
     headers: {
@@ -31,14 +35,16 @@ export async function getServerSideProps({req, res}: any) {
     }
   })
 
-  payments = dataOne.data 
+  payments = dataOne.data
+
+  payment = payments.find((payment ) => payment.Id === id)! 
 
   // Pass data to the page via props
   return { 
     props: { 
-     payments
+     payment
    } 
   }
 }
 
-export default PaymentPage
+export default EditPaymentPage

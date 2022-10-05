@@ -1,12 +1,18 @@
 import React from 'react'
 import { Payment } from '../../../typeDefs'
 import PaymentNav from '../../common/PaymentNav'
+import { Icon } from '@iconify/react';
+import Button from '../../common/Button';
+import { useRouter } from 'next/router';
 
 interface Props {
     payment: Payment
 }
 
 const Details: React.FC<Props> = ({ payment }) => {
+
+  const router = useRouter()
+
   return (
     <div>
         <PaymentNav text='Payments' icon1='ep:delete-filled' showIcon={true} />
@@ -14,17 +20,29 @@ const Details: React.FC<Props> = ({ payment }) => {
         {
         payment &&
         <>
-            <div className='!mt-8 sm:!mt-14 '>
+            <div className='!mt-8 sm:!mt-14 pb-16 '>
               <div className='w-full flex flex-col items-center justify-center space-y-4 sm:space-y-6'>
                   <h1 className='font-medium text-sm sm:text-base  '>Amount</h1>
                   <h1 className={`text-primaryOne font-semibold text-[32px] sm:text-[40px]  `}>
                     {` ${payment.Amount}`}
                   </h1>
               </div>
+              
+              <div 
+                onClick={() => router.push(`/dashboard/payments/edit/${payment.Id}`)}
+                className='mt-[48px] sm:mt-[80px] w-full flex justify-end !mb-4 px-4 sm:px-8 cursor-pointer '>
+                <div className='flex space-x-1 items-center w-fit'>
+                  <Icon 
+                    icon="clarity:note-edit-solid"
+                    className='!text-xl '
+                    />
+                    <h3 className='text-sm dark:text-light text-black'>Edit</h3>
+                </div>
+              </div>
 
 
 
-              <div className='w-full px-4 sm:px-8 py-6 flex flex-col space-y-8 bg-secondaryOne dark:bg-darkOne mt-[48px]  sm:mt-[80px]'>
+              <div className='w-full px-4 sm:px-8 py-6 flex flex-col space-y-8 bg-secondaryOne dark:bg-darkOne '>
                   {/* Title */}
                   <div className='w-full flex justify-between'>
                       <h1 className='left'>Title</h1>
@@ -58,6 +76,14 @@ const Details: React.FC<Props> = ({ payment }) => {
                       <h1 className='left'>Created</h1>
                       <h1 className='right'>{payment.Created}</h1>
                   </div>
+              </div>
+
+              <div className='w-full px-4 sm:px-8 flex flex-col items-center justify-center space-y-4 !mt-12 sm:space-y-6'>
+                  <h1 className='font-medium text-sm sm:text-base  '>Payment Link</h1>
+                  <h3 className=' text-sm sm:text-[18px] text-primaryOne font-semibold w-full flex-wrap !text-center leading-7 '>
+                    {` ${payment.Link.toString()}`}
+                  </h3>
+                  <Button text='Copy Link' handleSubmit={() => {}} />
               </div>
             </div>
         </>

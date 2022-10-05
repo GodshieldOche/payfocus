@@ -13,8 +13,6 @@ import { postTransfer } from '../../../../redux/features/transfer';
 import { setModal, setModalData } from '../../../../redux/features/modal';
 import { useRouter } from 'next/router';
 import SelectInput from '../../../formik/SelectInput';
-import { channel } from 'diagnostics_channel';
-
 
 const transferSchema = yup.object().shape({
     amount: yup.string(),
@@ -56,9 +54,13 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
     const [recepient, setRecepient] = useState('')
     const [recepientId, setRecepientId] = useState('')
     const [type, setType] = useState('Please Select')
+    const [typeId, setTypeId] = useState('')
     const [wallet, setWallet] = useState('Please Select')
+    const [walletId, setWalletId] = useState('')
     const [currency, setCurrency] = useState('NGN')
+    const [currencyId, setCurrencyId] = useState('NGN')
     const [bank, setBank] = useState('Bank')
+    const [bankId, setBankId] = useState('Bank')
 
 
     const dispatch = useDispatch()
@@ -144,18 +146,18 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
             onSubmit={(data, {resetForm, setSubmitting}) => {
                 const pfTransferBody: pfTransfer = {
                     amountDst: Number(data.amount),
-                    channel: type,
-                    dst: currency,
+                    channel: typeId,
+                    dst: currencyId,
                     inData: recepientId,
-                    src: wallet,
+                    src: walletId,
                     narration: data.narration
                 }
                 const bankTransfer: bankTransfer = {
                     amountDst: Number(data.amount),
                     channel: 'Bank',
                     dst: "566",
-                    inData: {bankId: bank, actNo: data.accountNumber!},
-                    src: wallet,
+                    inData: {bankId: bankId, actNo: data.accountNumber!},
+                    src: walletId,
                     narration: data.narration
                 }
 
@@ -181,6 +183,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                             options={[{name:'Please Select', value:'Please Select'}, {name:'Payfocus Account', value: 'Payfocus Account'},{name:'Bank Account', value: 'Bank Account'}]} 
                             value={type}
                             handleChange={setType}
+                            setValue={setTypeId}
                         />
 
                          <SelectInput 
@@ -188,6 +191,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                             options={[{name:'Please Select', value:'Please Select'}, ...options]}
                             value={wallet}
                             handleChange={setWallet}
+                            setValue={setWalletId}
                         />
 
                         <div className='w-full grid grid-cols-12 gap-2'>
@@ -197,6 +201,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                                     options={currencies}
                                     value={currency}
                                     handleChange={setCurrency}
+                                    setValue={setCurrencyId}
                                 />
                             </div>
                             <div className='col-span-9 sm:col-span-10'>
@@ -233,6 +238,7 @@ const Body: React.FC<TransferProp> = ({balances, banks}) => {
                                         options={[{ name: 'Bank', value: '0'}, ...bankOptions]}
                                         value={bank}
                                         handleChange={setBank}
+                                        setValue={setBankId}
                                     />
                                     <Input
                                         label='Account Holder Name'

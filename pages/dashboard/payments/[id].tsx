@@ -37,10 +37,7 @@ export async function getServerSideProps({req, res, params}: any) {
 
   payments = dataOne.data
 
-  payment = payments.find((payment ) => payment.Id === id)!
-
-  console.log(payment)
- 
+  payment = payments.find((payment ) => payment.Id === id)! 
 
   // Pass data to the page via props
   return { 

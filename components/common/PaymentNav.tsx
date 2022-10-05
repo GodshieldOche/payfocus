@@ -8,11 +8,12 @@ interface Props {
     icon1: string
     icon2?: string
     showIcon: boolean
+    action?: any
 }
 
 
 
-const PaymentNav: React.FC<Props> = ({text, icon1, icon2, showIcon }) => {
+const PaymentNav: React.FC<Props> = ({text, icon1, action, showIcon }) => {
 
     const router = useRouter()
 
@@ -27,7 +28,7 @@ const PaymentNav: React.FC<Props> = ({text, icon1, icon2, showIcon }) => {
           <h1 className='text-light !text-center'>{text}</h1>
         </div>
        
-        <Icon icon={icon1!} className='hidden lg:block text-lg !text-light xl:!text-xl cursor-pointer' />
+        <Icon onClick={action} icon={icon1!} className='hidden lg:block text-lg !text-light xl:!text-xl cursor-pointer' />
        
       <div className='absolute lg:hidden w-full h-full top-0 bottom-0 my-auto left-0 right-0 px-4 sm:px-[43px] flex justify-between items-center '>
         <HiOutlineArrowLeft 

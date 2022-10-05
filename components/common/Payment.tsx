@@ -16,7 +16,7 @@ const PaymentComp: React.FC<Props> = ({title, amount, created, id}) => {
   return (
     <div 
       onClick={() => router.push(`/dashboard/payments/${id}`)}
-      className='flex justify-between cursor-pointer items-center bg-light dark:bg-darkOne rounded-[6px] px-4 py-3 '>
+      className='flex justify-between cursor-pointer items-center bg-light border border-[#f5f5f5] dark:border-0 dark:bg-darkOne rounded-[6px] px-4 py-3 '>
         <div className='flex flex-col space-y-1 sm:space-y-2 '>
             <h3 className='dark:text-light text-black text-sm font-semibold '>{title}</h3>
             <h3 className='text-primaryOne text-xs font-semibold '>{amount}</h3>
