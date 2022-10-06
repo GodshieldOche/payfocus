@@ -1,0 +1,20 @@
+{
+    "amount": "120",
+    "currency": "USD",
+    "payment_method_id": "CARD",
+    "payment_method_flow": "DIRECT",
+    "country": "NG",
+    "payer": {
+        "name": "Muayyat Billah",
+        "email": "billah@muayyat.com",
+        "document": "53033315556"
+    },
+    "card": {
+        "holder_name": "Nazir Adam",
+        "expiration_month": 3,
+        "expiration_year":  2025,
+        "number": "5399236045613120",
+        "cvv": "180"
+    },
+    "order_id": "657434343"
+}

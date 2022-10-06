@@ -5,7 +5,7 @@ import { HiOutlineArrowLeft } from 'react-icons/hi';
 
 interface Props {
     text: string
-    icon1: string
+    icon1?: string
     icon2?: string
     showIcon: boolean
     action?: any

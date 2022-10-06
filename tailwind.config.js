@@ -13,11 +13,12 @@ module.exports = {
         darkOne: '#062156',
         mainBlack: '#848383',
         primaryOne: '#3270FD',
-        primaryTwo: '#69D942',
+        primaryTwo: '#61C73D',
         primaryThree: '#CC2525',
         secondaryOne: '#F5F5F5',
         secondaryTwo: '#D6F7CB',
         secondaryThree: '#FED7D7',
+        secondaryFour: '#D3D0D0',
       },
       fontFamily: {
         Poppins: ["Poppins, sans-serif"],

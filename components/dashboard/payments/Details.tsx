@@ -15,7 +15,7 @@ const Details: React.FC<Props> = ({ payment }) => {
 
   return (
     <div>
-        <PaymentNav text='Payments' icon1='ep:delete-filled' showIcon={true} />
+        <PaymentNav text='Payments' showIcon={true} />
 
         {
         payment &&
@@ -29,14 +29,16 @@ const Details: React.FC<Props> = ({ payment }) => {
               </div>
               
               <div 
-                onClick={() => router.push(`/dashboard/payments/edit/${payment.Id}`)}
-                className='mt-[48px] sm:mt-[80px] w-full flex justify-end !mb-4 px-4 sm:px-8 cursor-pointer '>
-                <div className='flex space-x-1 items-center w-fit'>
+               
+                className='mt-[48px] sm:mt-[80px] w-full flex items-center justify-end !mb-4 px-4 sm:px-8 '>
+                
+                <div  onClick={() => router.push(`/dashboard/payments/edit/${payment.Id}`)}  
+                  className='flex space-x-1 justify-end items-center cursor-pointer !w-fit'>
                   <Icon 
                     icon="clarity:note-edit-solid"
-                    className='!text-xl '
+                    className='!text-xl !text-mainBlack '
                     />
-                    <h3 className='text-sm dark:text-light text-black'>Edit</h3>
+                    <h3 className='text-sm text-mainBlack'>Edit</h3>
                 </div>
               </div>
 

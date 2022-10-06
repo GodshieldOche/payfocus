@@ -78,3 +78,18 @@ export type Payment = {
   Link: string,
   Redirect: string
 }
+
+export type Card =   {
+  Id: string,
+  owner: string,
+  currency: string,
+  name: string,
+  number: string,
+  pin: string,
+  cvv: string,
+  expiry: string,
+  address: string,
+  balance: number,
+  type: string,
+  transactions: [] | null
+}
