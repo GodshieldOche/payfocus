@@ -18,6 +18,8 @@ const SelectInput: React.FC <Props> = ({ label, value, handleChange, options, se
 
     const [active, setActive] = useState<boolean>(false)
 
+    let highlight = options.find((option) => option.name === value)
+
   return (
     <div
         className='relative space-y-2' >
@@ -28,7 +30,8 @@ const SelectInput: React.FC <Props> = ({ label, value, handleChange, options, se
             onClick={() => setActive(!active)}
             className='w-full h-full relative  '>
             <div className={`input text-left !cursor-default ${active ? "!border dark:!border-gray-300 !border-primaryOne" : "!border-0"}`}>
-                <h3 className={`${active ? "text-primaryOne dark:text-gray-300" : "text-mainBlack"}`}>
+                <h3 className={`${active ? "text-primaryOne dark:text-gray-300" : "text-mainBlack"}
+                 ${ highlight ? "dark:!text-gray-300 !text-black" : "!text-mainBlack" }`}>
                     {value}
                 </h3>
             </div>
