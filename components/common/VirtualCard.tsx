@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import CardImage from '../../public/card.png'
 import Frame from '../../public/Frame 2035.png'
 import mastercard from '../../public/image 1.png'
@@ -130,7 +130,16 @@ interface Props {
 const VirtualCard: React.FC<Props> = ({ cards }) => {
 
     const [index, setIndex] = useState(0)
-   const scrollRef: any = useRef(0)
+    const [size, setSize] = useState({width:398, height: 230.91 })
+    const [sizeType, setSizeType] = useState({width: 58, height: 35 })
+    const scrollRef: any = useRef(0)
+
+   useEffect(() => {
+        if(screen.width < 640) {
+            setSize({width: 343, height: 199})
+            setSizeType({width: 50, height: 28})
+        }
+   }, [typeof window !== "undefined" && screen.width])
 
    const handleLeft = (e:any) => {
         e.preventDefault()
@@ -139,9 +148,9 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
             left: scrollRef.current.scrollLeft + 400, 
             behavior: 'smooth'
         })
-        if(index < cards.length - 1) {
-            setIndex(index + 1)
-        }
+        // if(index < cards.length - 1) {
+        //     setIndex(index + 1)
+        // }
         
    }
 
@@ -149,9 +158,9 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
         e.preventDefault()
         // console.log(cardRef)
         scrollRef.current.scrollTo({left: scrollRef.current.scrollLeft - 400, behavior: 'smooth'})
-        if(index > 0) {
-            setIndex(index - 1)
-        }
+        // if(index > 0) {
+        //     setIndex(index - 1)
+        // }
    }
 
    const handleJump = (indexer: number) => {
@@ -162,19 +171,19 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
   return (
     <div className='flex flex-col items-center w-full h-full  space-y-9' >
         <div ref={scrollRef} onScroll={() => {
-            console.log(Math.trunc(scrollRef.current.scrollLeft / 150))
+            console.log(scrollRef.current.offsetWidth)
             setIndex(Math.trunc(scrollRef.current.scrollLeft / 150))
             } 
         }
-             className={`flex ${cards.length === 1 ? "justify-center" : "justify-start"} px-3 items-center w-full h-full space-x-[18px] overflow-y-hidden overflow-x-auto scroller   `}>
+             className={`flex ${cards.length === 1 ? "justify-center" : "justify-start"} px-2 sm:px-3 items-center w-full h-full space-x-[18px] overflow-y-hidden overflow-x-auto scroller   `}>
             {
                 cards.map((card, i) => (
                     <div key={card.Id} className='relative w-fit h-fit  '>
-                        <div className='relative  !w-[398px] !h-[230.91px] '>       
+                        <div className='relative w-[343px] h-[199px]  sm:w-[398px] sm:h-[230.91px] '>       
                             <Image
                                 src={CardImage}
-                                width={398}
-                                height={230.91}
+                                width={size.width}
+                                height={size.height}
                             />
                             <div className='absolute top-0 left-10'>
                                 <Image
@@ -182,15 +191,14 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
                                 />
                             </div>
                         </div>
-                        <div className='absolute top-0 bottom-0 left-0 right-0 w-full h-full flex flex-col pb-[9px] pt-7 px-[18.57px]'>
+                        <div className='absolute top-0 bottom-0 left-0 right-0 w-full h-full flex flex-col sm:pb-[9px] py-5 sm:pt-7 px-4 sm:px-[18.57px]'>
         
                             <div className='flex items-center justify-between'>
-                                <h3 className='text-light font-[700]  text-[13.9242px] uppercase '>{card.owner}</h3>
-                                <h3 className='text-light font-semibold  text-[14.3795px] capitalize'>{card.name}</h3>
+                                <h3 className='text-light font-[700] text-x[12px]  sm:text-[13.9242px] uppercase '>{card.owner}</h3>
+                                <h3 className='text-light font-semibold text-[12.3924px]   sm:text-[14.3795px] capitalize'>{card.name}</h3>
                             </div>
-                            <h1 className="hidden">{card.Id}</h1>
         
-                            <h1 className='font-semibold text-[23.207px] text-light mt-[30px] '>
+                            <h1 className='font-semibold text-[20px] sm:text-[23.207px] text-light mt-[25px] sm:mt-[30px] '>
                                {`
                                     ${card.currency === '840' 
                                     ? '$'
@@ -203,7 +211,7 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
                                     ${card.balance}
                                 `}
                             </h1>
-                            <h1 className='font-semibold leading-[20px] text-[16.2449px] text-light mt-[25px] '>
+                            <h1 className='font-semibold leading-[20px] text-sm sm:text-[16.2449px] text-light mt-[20px] sm:mt-[25px] '>
                                 {`
                                     ${card.number.slice(0,4)}
                                     ${card.number.slice(4,8)}
@@ -213,19 +221,23 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
                             </h1>
                             <div className='flex items-start  justify-between'>
                                 <div className='flex flex-col space-y-1 mt-[35px]'>
-                                    <h4 className='font-semibold text-[10.4431px] text-light'>VALID TILL</h4>
-                                    <h4 className='font-semibold text-[10.4431px] text-light'>{card.expiry}</h4>
+                                    <h4 className='font-semibold text-[9px] sm:text-[10.4431px] text-light'>VALID TILL</h4>
+                                    <h4 className='font-semibold text-[9px] sm:text-[10.4431px] text-light'>{card.expiry}</h4>
                                 </div>
                                 <div className='flex flex-col '>
                                     <div className='relative flex justify-end'>
-                                        <Image src={ card.type === "MasterCard" ? mastercard : visa} />
+                                        <Image 
+                                            src={ card.type === "MasterCard" ? mastercard : visa}
+                                            width={sizeType.width}
+                                            height={sizeType.height}
+                                        />
                                     </div>
-                                    <h3 className='font-semibold tracking-wider text-right text-[11px] text-light mt-1'>
+                                    <h3 className='font-semibold tracking-wider text-right text-[10px] sm:text-[11px] text-light mt-[2px] sm:mt-1'>
                                         {
                                             card.type === "MasterCard" ? 'mastercard' : 'visa'
                                         }
                                     </h3>
-                                    <h4 className='font-semibold tracking-wider text-right text-[11px] -mt-1 text-light'>virtual</h4>
+                                    <h4 className='font-semibold tracking-wider text-right text-[10px] sm:text-[11px] -mt-1 text-light'>virtual</h4>
                                 </div>
                             </div>
                         </div>

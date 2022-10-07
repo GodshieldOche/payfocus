@@ -28,9 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.json({error: error.message})
     }
 
-    console.log(date)
-    console.log(signature(date, body))
-
     res.status(200).json({success: success})
 
    
