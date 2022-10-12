@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import Payments from '../../../components/dashboard/payments/Payments'
 import Cards from '../../../components/dashboard/cards/Cards'
 
 const CardsPage: NextPage<any> = ( props ) => {

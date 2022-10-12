@@ -1,11 +1,12 @@
 import Image from 'next/image'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import CardImage from '../../public/card.png'
 import Frame from '../../public/Frame 2035.png'
 import mastercard from '../../public/image 1.png'
 import visa from '../../public/visa.png'
 import { Card } from '../../typeDefs'
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi'
+import { useRouter } from 'next/router'
 
 const array = [
     {
@@ -135,6 +136,9 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
     const scrollRef: any = useRef(0)
     const mobileScrollRef: any = useRef(0)
 
+    const router = useRouter()
+    
+
    const handleLeft = (e:any) => {
         e.preventDefault()
         // console.log(cardRef.current.getElementsByClassName('hidden')[0].innerText)\
@@ -174,7 +178,7 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
         >
             {
                 cards.map((card, i) => (
-                    <div key={card.Id} className='relative w-fit h-fit  '>
+                    <div onClick={() => router.push(`/dashboard/cards/${card.Id}`)} key={card.Id} className='relative w-fit h-fit  '>
                         <div className='relative w-[343px] h-[199px]  sm:w-[398px] sm:h-[230.91px] '>       
                             <Image
                                 src={CardImage}
@@ -251,7 +255,7 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
                 } 
             }
         >
-            <div key={cards[index].Id} className='relative w-fit h-fit  '>
+            <div onClick={() => router.push(`/dashboard/cards/${cards[index].Id}`)} key={cards[index].Id} className='relative w-fit h-fit  '>
                             <div className='relative w-[343px] h-[199px] overflow-hidden '>       
                                 <Image
                                     src={CardImage}
