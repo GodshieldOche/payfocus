@@ -1,27 +1,24 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { serialize } from 'cookie';
+import type { NextApiRequest, NextApiResponse } from "next";
+import { serialize } from "cookie";
 
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const token = req.body;
 
-export default function handler(req: NextApiRequest, res: NextApiResponse ) {
-    const token = req.body
+  if (!token) {
+    return res.status(400).json({ message: "Inavlid token" });
+  }
 
-    if (!token) {
-       return res.status(400).json({message: 'Inavlid token'})
-    }
+  let serialised;
 
-    let serialised;
+  serialised = serialize("jwt", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development",
+    sameSite: "strict",
+    maxAge: 60 * 60 * 24 * 30,
+    path: "/",
+  });
 
-    serialised = serialize("jwt", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== "development",
-        sameSite: "strict",
-        maxAge: 60 * 60 * 24 * 30,
-        path: "/",
-    });
-    
+  res.setHeader("Set-Cookie", serialised);
 
-    res.setHeader("Set-Cookie", serialised);
-
-    res.status(200).json({ message: "Success!" });
+  res.status(200).json({ message: "Success!" });
 }
-  

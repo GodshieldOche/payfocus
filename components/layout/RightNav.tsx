@@ -1,70 +1,69 @@
-import React from 'react'
-import Image from 'next/image'
-import Button from '../common/Button'
-import Toggle from '../common/Toggle'
-import { useDispatch } from 'react-redux'
-import { logout } from '../../redux/features/session'
+import React from "react";
+import Image from "next/image";
+import Button from "../common/Button";
+import Toggle from "../common/Toggle";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/session";
 
 export type User = {
-  id: string,
-  fullName: string,
-  email: string,
-  type: string,
-  address: string,
-  country: string,
-  state: string,
-  merchantId: string,
-  logo: string,
-  status: string,
-  akey: string,
-  skey: string,
-  phone: string
-}
+  id: string;
+  fullName: string;
+  email: string;
+  type: string;
+  address: string;
+  country: string;
+  state: string;
+  merchantId: string;
+  logo: string;
+  status: string;
+  akey: string;
+  skey: string;
+  phone: string;
+};
 
 interface Props {
-  currentUser: User
+  currentUser: User;
 }
 
-
-
-const RightNav: React.FC<Props> = ({currentUser}) => {
-
-  const dispatch = useDispatch()
+const RightNav: React.FC<Props> = ({ currentUser }) => {
+  const dispatch = useDispatch();
 
   const handleClick = async (e: any) => {
     dispatch(logout()).then((res: any) => {
       setTimeout(() => {
-        location.reload()
-      }, 1000)
-    })
-  }
+        location.reload();
+      }, 1000);
+    });
+  };
 
   return (
-    <div className='mt-10 flex flex-col items-center lg:space-y-6 xl:space-y-7 px-6'>
-      <div className='flex flex-col space-y-3 items-center justify-center'>
-        <div 
+    <div className="mt-10 flex flex-col items-center lg:space-y-6 xl:space-y-7 px-6">
+      <div className="flex flex-col space-y-3 items-center justify-center">
+        <div
           onClick={handleClick}
-          className='relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full'>
-            <Image 
-              src={currentUser.logo}
-              layout='fill'
-              objectFit='cover'
-              className='w-full h-full rounded-full'
-              objectPosition={0}
-              priority
-            />
+          className="relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full"
+        >
+          <Image
+            src={currentUser.logo}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full rounded-full"
+            objectPosition={0}
+            priority
+          />
         </div>
-        <h1 className=' lg:!text-lg xl:!text-xl text-black dark:text-light !font-semibold '>{currentUser.fullName}</h1>
+        <h1 className=" lg:!text-lg xl:!text-xl text-black dark:text-light !font-semibold ">
+          {currentUser.fullName}
+        </h1>
       </div>
 
       <Button text="View Profile" handleSubmit={() => {}} />
 
-      <div> 
+      <div>
         <Toggle />
       </div>
-        
     </div>
-  )
-}
+  );
+};
 
-export default RightNav
+export default RightNav;
