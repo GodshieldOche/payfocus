@@ -90,3 +90,12 @@ export type Card = {
   type: string;
   transactions: [] | null;
 };
+
+export type CardPayment = {
+  Balance: number;
+  Currency: string;
+  Pin: string;
+  Name: string;
+  Address: string;
+  Type: string;
+};

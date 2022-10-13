@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { Card } from "../../../typeDefs";
 import Button from "../../common/Button";
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const Body: React.FC<Props> = ({ cards }) => {
+  const router = useRouter();
+
   return (
     <div className="px-4 sm:px-[43px] lg:px-6 font-Poppins !mt-8 sm:!mt-8 pb-10">
       {cards.length >= 1 ? (
@@ -18,7 +21,10 @@ const Body: React.FC<Props> = ({ cards }) => {
               We provide you with a virtual card to ease your local and
               international transactions
             </h3>
-            <Button text="Create a new card" handleSubmit={() => {}} />
+            <Button
+              text="Create a new card"
+              handleSubmit={() => router.push("/dashboard/cards/create")}
+            />
           </div>
         </div>
       ) : (
@@ -27,7 +33,10 @@ const Body: React.FC<Props> = ({ cards }) => {
             We provide you with a virtual card to ease your local and
             international transactions
           </h3>
-          <Button text="Create a new card" handleSubmit={() => {}} />
+          <Button
+            text="Create a new card"
+            handleSubmit={() => router.push("/dashboard/cards/create")}
+          />
         </div>
       )}
     </div>

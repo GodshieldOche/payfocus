@@ -181,7 +181,7 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
           <div
             onClick={() => router.push(`/dashboard/cards/${card.Id}`)}
             key={card.Id}
-            className="relative w-fit h-fit  "
+            className="relative w-fit h-fit cursor-pointer "
           >
             <div className="relative w-[343px] h-[199px]  sm:w-[398px] sm:h-[230.91px] ">
               <Image src={CardImage} width={size.width} height={size.height} />
@@ -262,7 +262,7 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
         <div
           onClick={() => router.push(`/dashboard/cards/${cards[index].Id}`)}
           key={cards[index].Id}
-          className="relative w-fit h-fit  "
+          className="relative w-fit h-fit cursor-pointer "
         >
           <div className="relative w-[343px] h-[199px] overflow-hidden ">
             <Image src={CardImage} width={343} height={199} />

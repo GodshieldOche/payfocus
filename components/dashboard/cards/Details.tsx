@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "../../../typeDefs";
 import BackNav from "../../common/BackNav";
+import Button from "../../common/Button";
 import CopyForm from "../../formik/CopyForm";
 
 interface Props {
@@ -27,7 +28,7 @@ const Details: React.FC<Props> = ({ card }) => {
   return (
     <div>
       <BackNav text="Card Details" />
-      <div className="px-4 sm:px-[43px] lg:px-6 !mt-8 sm:!mt-14">
+      <div className="px-4 sm:px-[43px] lg:px-6 !mt-8 sm:!mt-14 space-y-16">
         <form className="space-y-6">
           <CopyForm
             label="Card Name"
@@ -62,6 +63,11 @@ const Details: React.FC<Props> = ({ card }) => {
             type="password"
           />
         </form>
+
+        <div className="flex justify-between items-center space-x-5 ">
+          <Button text="Withdraw" outline={true} handleSubmit={() => {}} />
+          <Button text="Fund Card" handleSubmit={() => {}} />
+        </div>
       </div>
     </div>
   );

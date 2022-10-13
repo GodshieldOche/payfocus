@@ -7,6 +7,7 @@ import registerReducer from "./features/register";
 import swapReducer from "./features/swap";
 import fundReducer from "./features/fund";
 import transferReducer from "./features/transfer";
+import cardReducer from "./features/card";
 
 const makeStore = () =>
   configureStore({
@@ -18,6 +19,7 @@ const makeStore = () =>
       swap: swapReducer,
       fund: fundReducer,
       transfer: transferReducer,
+      card: cardReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
