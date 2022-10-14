@@ -4,6 +4,7 @@ import MainLayout from "./MainLayout";
 import { useSelector } from "react-redux";
 import Modal from "./modal/Modal";
 import Footer from "./Footer";
+import CardModal from "./modal/CardModal";
 
 const Layout: React.FC<any> = ({ children, currentUser }) => {
   const { modalState, searchModalState } = useSelector(

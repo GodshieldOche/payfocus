@@ -99,3 +99,8 @@ export type CardPayment = {
   Address: string;
   Type: string;
 };
+
+export type Withdraw = {
+  amount: number;
+  id: string;
+};

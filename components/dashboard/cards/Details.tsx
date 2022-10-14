@@ -1,11 +1,13 @@
-import React from "react";
-import { Card } from "../../../typeDefs";
+import React, { useState } from "react";
+import { balance, Card } from "../../../typeDefs";
 import BackNav from "../../common/BackNav";
 import Button from "../../common/Button";
 import CopyForm from "../../formik/CopyForm";
+import CardModal from "../../layout/modal/CardModal";
 
 interface Props {
   card: Card;
+  balances: balance[];
 }
 
 interface cardValues {
@@ -18,7 +20,9 @@ interface cardValues {
   balance: number;
 }
 
-const Details: React.FC<Props> = ({ card }) => {
+const Details: React.FC<Props> = ({ card, balances }) => {
+  const [active, setActive] = useState("");
+
   const number = `${card.number.slice(0, 4)}
     ${card.number.slice(4, 8)}
     ${card.number.slice(8, 12)}
@@ -65,10 +69,23 @@ const Details: React.FC<Props> = ({ card }) => {
         </form>
 
         <div className="flex justify-between items-center space-x-5 ">
-          <Button text="Withdraw" outline={true} handleSubmit={() => {}} />
-          <Button text="Fund Card" handleSubmit={() => {}} />
+          <Button
+            text="Withdraw"
+            outline={true}
+            handleSubmit={() => setActive("withdraw")}
+          />
+          <Button text="Fund Card" handleSubmit={() => setActive("fund")} />
         </div>
       </div>
+      {active && (
+        <CardModal
+          balance={card.balance}
+          currency={card.currency}
+          setActive={setActive}
+          active={active}
+          balances={balances}
+        />
+      )}
     </div>
   );
 };

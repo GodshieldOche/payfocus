@@ -36,6 +36,30 @@ export const postCreateCard: any = createAsyncThunk(
   }
 );
 
+export const postWithdraw: any = createAsyncThunk(
+  `user/postWithdraw`,
+  async ({ body, token }: any, { dispatch, rejectWithValue }) => {
+    try {
+      const { data }: any = await axios.post(
+        ` https://api.payfocuss.com/card/withdraw`,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch(reset());
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // Define the initial state using that type
 const initialState: authState = {
   loading: true,
@@ -60,6 +84,17 @@ export const cardSlice = createSlice({
       state.data = payload;
     },
     [postCreateCard.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [postWithdraw.pending]: (state) => {
+      state.loading = true;
+    },
+    [postWithdraw.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.data = payload;
+    },
+    [postWithdraw.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },

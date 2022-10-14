@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import axios from "axios";
 import Details from "../../../components/dashboard/cards/Details";
-import { Card } from "../../../typeDefs";
+import { balance, Card } from "../../../typeDefs";
 
 const CardsDetailsPage: NextPage<any> = (props) => {
   return (
@@ -12,7 +12,7 @@ const CardsDetailsPage: NextPage<any> = (props) => {
         <meta name="description" content="PayFocus by Uniccon group" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Details card={props.card} />
+      <Details card={props.card} balances={props.balances} />
     </div>
   );
 };
@@ -24,6 +24,7 @@ export async function getServerSideProps({ req, res, params }: any) {
 
   let card: Card;
   let cards: Card[];
+  let balances: balance[];
 
   const dataOne = await axios.get(`https://api.payfocuss.com/cards`, {
     headers: {
@@ -31,6 +32,15 @@ export async function getServerSideProps({ req, res, params }: any) {
       Authorization: `Bearer ${jwt}`,
     },
   });
+
+  const dataTwo = await axios.get("https://api.payfocuss.com/balance", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+
+  balances = dataTwo.data;
 
   cards = JSON.parse(dataOne.data.data);
 
@@ -40,6 +50,7 @@ export async function getServerSideProps({ req, res, params }: any) {
   return {
     props: {
       card,
+      balances,
     },
   };
 }
