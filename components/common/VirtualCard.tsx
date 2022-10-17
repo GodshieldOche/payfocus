@@ -7,6 +7,7 @@ import visa from "../../public/visa.png";
 import { Card } from "../../typeDefs";
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import { useRouter } from "next/router";
+import { useSwipeable } from "react-swipeable";
 
 const array = [
   {
@@ -165,14 +166,27 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
     setIndex(indexer);
   };
 
+  const handlers = useSwipeable({
+    onSwipedRight: (eventData) => {
+      if (index > 0) {
+        setIndex(index - 1);
+      }
+    },
+    onSwipedLeft: (eventData) => {
+      if (index < cards.length - 1) {
+        setIndex(index + 1);
+      }
+    },
+  });
+
   return (
     <div className="flex flex-col items-center w-full h-full  space-y-9">
       <div
+        // onScroll={() => {
+        //   // console.log(scrollRef.current.offsetWidth)
+        //   // setIndex(Math.trunc(scrollRef.current.scrollLeft / 150))
+        // }}
         ref={scrollRef}
-        onScroll={() => {
-          // console.log(scrollRef.current.offsetWidth)
-          // setIndex(Math.trunc(scrollRef.current.scrollLeft / 150))
-        }}
         className={`flex ${
           cards.length === 1 ? "justify-center" : "justify-start"
         } hidden sm:flex px-2 sm:px-3 items-center w-full h-full space-x-[18px] overflow-y-hidden overflow-x-auto scroller   `}
@@ -254,7 +268,7 @@ const VirtualCard: React.FC<Props> = ({ cards }) => {
       {/* Mobile */}
       <div
         className="flex sm:hidden items-center justify-center"
-        ref={mobileScrollRef}
+        {...handlers}
         onScroll={() => {
           console.log(scrollRef.current.scrollX);
         }}
