@@ -15,7 +15,7 @@ const Transaction: React.FC<Props> = ({ price, date, type, id }) => {
   return (
     <div
       onClick={() => router.push(`/dashboard/wallet/transaction/${id}`)}
-      className=" px-2 py-4 lg:p-4 rounded-[6px] border border-secondaryOne cursor-pointer dark:border-0 dark:bg-darkOne w-full flex items-center justify-center space-x-4  "
+      className=" px-2 py-4 lg:p-3 rounded-[6px] border border-secondaryOne cursor-pointer dark:border-0 dark:bg-darkOne w-full flex items-center space-x-4  "
     >
       {type === "inflow" ? (
         <div className="p-2 rounded-full bg-secondaryTwo flex items-center justify-center">
@@ -27,11 +27,29 @@ const Transaction: React.FC<Props> = ({ price, date, type, id }) => {
         </div>
       )}
 
-      <div className="w-full flex items-center justify-between">
-        <h1 className="text-sm lg:text-base font-semibold text-black dark:text-light tracking-wider ">
+      <div
+        className={` ${
+          router.pathname.includes("/settings")
+            ? "flex flex-col space-y-1"
+            : "w-full flex items-center justify-between"
+        } `}
+      >
+        <h1
+          className={` ${
+            router.pathname.includes("/settings")
+              ? "text-sm"
+              : "text-sm lg:text-base"
+          }  font-semibold text-black dark:text-light tracking-wider `}
+        >
           {price}
         </h1>
-        <h3 className="text-xs lg:text-sm font-medium ">
+        <h3
+          className={` ${
+            router.pathname.includes("/settings")
+              ? "text-xs"
+              : "text-xs lg:text-sm font-medium"
+          }  `}
+        >
           {date.substring(0, 10)}
         </h3>
       </div>

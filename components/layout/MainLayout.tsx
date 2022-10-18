@@ -11,7 +11,7 @@ const MainLayout: React.FC<any> = ({ children, currentUser }) => {
       <div className="lg:col-span-12 h-full  overflow-y-auto scroller pb-10 ">
         {children}
       </div>
-      <div className="hidden h-full lg:block lg:col-span-4 order-first lg:order-3 bg-white dark:bg-dark border-l border-secondaryOne dark:border-darkOne">
+      <div className="hidden h-full overflow-hidden lg:block lg:col-span-4 order-first lg:order-3 bg-white dark:bg-dark border-l border-secondaryOne dark:border-darkOne">
         <RightNav currentUser={currentUser} />
       </div>
     </div>
