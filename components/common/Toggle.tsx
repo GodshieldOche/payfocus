@@ -15,11 +15,9 @@ const Toggle: React.FC<Props> = ({}) => {
 
   return (
     <div
-      className={` ${
-        router.pathname.includes("/settings")
-          ? " bg-secondaryOne"
-          : "bg-secondaryOne dark:bg-darkOne"
-      } flex items-center w-full sm:space-x-1 space-x-[2px] py-[2px] sm:py-1 px-[2px] sm:px-1  rounded-full sm:rounded-[15px] `}
+      className={` 
+          bg-secondaryOne dark:bg-darkOne
+       flex items-center w-full sm:space-x-1 space-x-[2px] py-[2px] sm:py-1 px-[2px] sm:px-1  rounded-full sm:rounded-[15px] `}
     >
       {mounted && (
         <>

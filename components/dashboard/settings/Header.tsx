@@ -38,18 +38,15 @@ const Header: React.FC<Props> = ({ currentUser }) => {
         <button
           className={`
         bg-white border-0 text-primaryOne
-          w-full h-fit text-sm  font-medium  py-[12px] rounded-[7px] `}
+          w-full h-fit text-sm  font-medium py-[12px] rounded-[7px] `}
           type="button"
         >
           Verify Account
         </button>
 
-        <div className="hidden lg:block">
+        <div className="">
           <Toggle />
         </div>
-      </div>
-      <div className="absolute lg:hidden top-5 right-4 sm:right-[43px] ">
-        <Toggle />
       </div>
     </div>
   );

@@ -56,22 +56,37 @@ const Input: React.FC<Props> = ({
           onFocus={() => setActive(true)}
           onBlur={() => setActive(false)}
         />
-        {name === "password" ||
-          (name === "pin" && (
-            <div className="absolute h-full top-0 bottom-0 right-4 flex flex-col justify-center">
-              {inputType === "password" ? (
-                <RiEyeFill
-                  onClick={() => setInputType("text")}
-                  className="!text-lg !text-primaryOne cursor-pointer"
-                />
-              ) : (
-                <RiEyeOffFill
-                  onClick={() => setInputType("password")}
-                  className="!text-lg !text-mainBlack cursor-pointer"
-                />
-              )}
-            </div>
-          ))}
+        {name === "password" && (
+          <div className="absolute h-full top-0 bottom-0 right-4 flex flex-col justify-center">
+            {inputType === "password" ? (
+              <RiEyeFill
+                onClick={() => setInputType("text")}
+                className="!text-lg !text-primaryOne cursor-pointer"
+              />
+            ) : (
+              <RiEyeOffFill
+                onClick={() => setInputType("password")}
+                className="!text-lg !text-mainBlack cursor-pointer"
+              />
+            )}
+          </div>
+        )}
+
+        {name === "pin" && (
+          <div className="absolute h-full top-0 bottom-0 right-4 flex flex-col justify-center">
+            {inputType === "password" ? (
+              <RiEyeFill
+                onClick={() => setInputType("text")}
+                className="!text-lg !text-primaryOne cursor-pointer"
+              />
+            ) : (
+              <RiEyeOffFill
+                onClick={() => setInputType("password")}
+                className="!text-lg !text-mainBlack cursor-pointer"
+              />
+            )}
+          </div>
+        )}
       </div>
       <ErrorMessage
         className="text-xs font-medium !text-red-400"

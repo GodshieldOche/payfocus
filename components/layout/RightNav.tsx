@@ -45,7 +45,6 @@ const RightNav: React.FC<Props> = ({ currentUser }) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(data);
     setTransactions(data.data);
   };
 
@@ -53,23 +52,12 @@ const RightNav: React.FC<Props> = ({ currentUser }) => {
     getTransactions();
   }, [router.pathname.includes("/settings")]);
 
-  const handleClick = async (e: any) => {
-    dispatch(logout()).then((res: any) => {
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
-    });
-  };
-
   return (
     <>
       {!router.pathname.includes("/settings") && (
         <div className="mt-10 flex flex-col items-center lg:space-y-6 xl:space-y-7 px-6">
           <div className="flex flex-col space-y-3 items-center justify-center">
-            <div
-              onClick={handleClick}
-              className="relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full"
-            >
+            <div className="relative lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full">
               <Image
                 src={currentUser.logo}
                 layout="fill"
