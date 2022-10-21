@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { setModal, setModalData } from "../../../redux/features/modal";
 import { logout } from "../../../redux/features/session";
 import BoxLink from "../../common/BoxLink";
 import ButtonLoader from "../../common/ButtonLoader";
@@ -14,7 +15,7 @@ const Settings: React.FC<Props> = ({ currentUser }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const handleClick = async (e: any) => {
+  const handleClick = async () => {
     setLoading(true);
     dispatch(logout()).then((res: any) => {
       setTimeout(() => {
@@ -22,6 +23,17 @@ const Settings: React.FC<Props> = ({ currentUser }) => {
         location.reload();
       }, 1000);
     });
+  };
+
+  const message = {
+    title: "Log Out",
+    type: "logout",
+    text: "Are you sure you want to log out of your account?",
+    buttonText: "Log Out",
+    func: () => {
+      handleClick();
+      dispatch(setModal(false));
+    },
   };
 
   return (
@@ -32,13 +44,13 @@ const Settings: React.FC<Props> = ({ currentUser }) => {
           title="Profile Information"
           text="Profile"
           icon="bi:person-fill"
-          link=""
+          link="profile"
         />
         <BoxLink
           title="Account"
           text="Security Settings"
           icon="bi:shield-lock-fill"
-          link=""
+          link="security"
         />
         <BoxLink
           title="Others"
@@ -54,7 +66,10 @@ const Settings: React.FC<Props> = ({ currentUser }) => {
         bg-primaryThree border-0 text-white
           w-full h-fit text-sm  font-medium py-[12px] md:py-[18px] rounded-[7px] `}
             type="button"
-            onClick={handleClick}
+            onClick={() => {
+              dispatch(setModalData(message));
+              dispatch(setModal(true));
+            }}
           >
             {loading ? <ButtonLoader /> : "Log Out"}
           </button>

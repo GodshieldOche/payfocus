@@ -17,10 +17,7 @@ const Header: React.FC<Props> = ({ currentUser }) => {
       <div className=" flex flex-col items-center w-full max-w-[150px] sm:max-w-[200px] mx-auto space-y-6 xl:space-y-7">
         <h1 className="text-light font-[600] text-base lg:hidden ">Settings</h1>
         <div className="flex flex-col space-y-3 items-center justify-center">
-          <div
-            // onClick={handleClick}
-            className="relative w-[104px] h-[104px] lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full"
-          >
+          <div className="relative w-[104px] h-[104px] lg:w-[80px] lg:h-[80px] xl:w-[96px] xl:h-[96px] border-2 border-primaryOne rounded-full">
             <Image
               src={currentUser.logo}
               layout="fill"
