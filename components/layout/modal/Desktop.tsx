@@ -32,7 +32,7 @@ const Desktop: React.FC<Props> = ({ close, buttonText, text, title, type }) => {
       {type === "logout" ? (
         <div className="flex  w-full !mb-[35px] sm:!mb-0 ">
           <button
-            className={`bg-primaryThree border-0 text-white w-full h-fit text-sm  font-medium py-[12px] rounded-[7px] `}
+            className={`bg-primaryThree border-0 text-white w-full h-fit text-sm  font-medium py-[18px] rounded-[7px] `}
             type="button"
             onClick={close}
           >
