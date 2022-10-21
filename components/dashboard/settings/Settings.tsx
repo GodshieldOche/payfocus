@@ -64,7 +64,7 @@ const Settings: React.FC<Props> = ({ currentUser }) => {
           <button
             className={`
         bg-primaryThree border-0 text-white
-          w-full h-fit text-sm  font-medium py-[12px] md:py-[18px] rounded-[7px] `}
+          w-full h-fit text-sm  font-medium py-[18px] rounded-[7px] `}
             type="button"
             onClick={() => {
               dispatch(setModalData(message));

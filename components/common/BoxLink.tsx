@@ -19,7 +19,7 @@ const BoxLink: React.FC<Props> = ({ title, text, icon, link }) => {
       </h1>
       <div
         onClick={() => router.push(`/dashboard/settings/${link}`)}
-        className="flex w-full items-center justify-between cursor-pointer rounded-[10px] bg-transparent border border-secondaryOne dark:bg-darkOne dark:border-0 p-[18px] md:p-[20px]"
+        className="flex w-full items-center justify-between cursor-pointer rounded-[10px] bg-transparent border border-secondaryOne dark:bg-darkOne dark:border-0 p-[20px]"
       >
         <div className="flex items-center space-x-5">
           <Icon icon={icon} className="text-xl md:!text-2xl text-primaryOne " />
